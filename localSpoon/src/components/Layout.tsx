@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function Layout() {
 	return (
 		<>
-			<div className="navbar">
+			<div className="navbar ">
 				<ul className="nav-list">
 					<li className="nav-item"><Link to="/seller/create-store" className="nav-link">SellerCreateStore</Link></li>
 					<li className="nav-item"><Link to="/seller" className="nav-link">SellerLanding</Link></li>
