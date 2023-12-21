@@ -1,27 +1,26 @@
 .navbar {
-    color: black;
-    padding: 10px;
-    position : fixed;
-    bottom: 1rem;
-    border:  black 1px solid;
-  }
-  
-  .nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .nav-item {
-    margin-right: 15px;
-  }
-  
-  .nav-item:last-child {
-    margin-right: 0;
-  }
-  
-  .nav-link {
-    text-decoration: none;
-    color: black;
-  }
+  padding: 1.5rem;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+}
+
+p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-left: 1rem;
+}

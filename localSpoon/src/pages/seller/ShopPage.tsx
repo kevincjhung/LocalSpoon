@@ -1,7 +1,11 @@
+import { useParams } from 'react-router-dom';
+
 export default function ShopPage(){
+  const { shopID} = useParams();
+
   return (
     <div>
-      <p>Shop id="123" Page Under Construction</p>
+      <p>Page For Shop id: "{shopID}" is under construction</p>
     </div>
   )
 }
