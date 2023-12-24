@@ -7,22 +7,23 @@ import { StoreInfoForm } from '../../components/createStore/StoreInfoForm';
 import { StoreLocationForm } from '../../components/createStore/StoreLocationForm';
 import { StoreDescriptionForm } from '../../components/createStore/StoreDescriptionForm';
 import { StoreDeliveryForm } from '../../components/createStore/StoreDeliveryForm';
-
+import { StoreSubmissionConfirmationForm } from '../../components/createStore/StoreSubmissionConfirmationForm';
 
 // Custom Hook
 import { useMultistepForm } from '../../hooks/useMultistepForm';
 
-type FormData = {
-  firstName: string     // userData
-  lastName: string      // userData
-  age: string           // userData
-  street: string        // addressData
-  city: string          // addressData
-  state: string         // addressData
-  zip: string           // addressData
-  email: string         // accountData
-  password: string      // accountData
-}
+
+// type FormData = {
+//   firstName: string     // userData
+//   lastName: string      // userData
+//   age: string           // userData
+//   street: string        // addressData
+//   city: string          // addressData
+//   state: string         // addressData
+//   zip: string           // addressData
+//   email: string         // accountData
+//   password: string      // accountData
+// }
 
 type LocalSpoonFormData = {
   storeName: string           // StoreInfoData
@@ -71,8 +72,8 @@ export default function CreateStorePage() {
       <StoreInfoForm {...data} updateFields={updateFields} />,
       <StoreLocationForm {...data} updateFields={updateFields} />,
       <StoreDescriptionForm {...data} updateFields={updateFields} />,
-      <StoreDeliveryForm {...data} updateFields={updateFields} />
-      
+      <StoreDeliveryForm {...data} updateFields={updateFields} />,
+      <StoreSubmissionConfirmationForm data={data} />,
     ])
 
   function onSubmit(e: FormEvent) {
