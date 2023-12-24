@@ -1,100 +1,92 @@
 // Library imports
-import React, { useState } from 'react';
+import { useState, FormEvent } from 'react';
+import {AccountForm} from '../../components/createStore/AccountForm';
+import {UserForm} from '../../components/createStore/UserForm';
+import {AddressForm} from '../../components/createStore/AddressForm';
 
-// MaterialUI Imports
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useMultistepForm } from '../../hooks/useMultistepForm';
+
+type FormData = {
+  firstName: string
+  lastName: string
+  age: string
+  street: string
+  city: string
+  state: string
+  zip: string
+  email: string
+  password: string
+}
+
+const INITIAL_DATA: FormData = {
+  firstName: "",
+  lastName: "",
+  age: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+  email: "",
+  password: "",
+}
 
 
 
 export default function CreateStorePage() {
-  const [showPassword, setShowPassword] = useState(false);
 
+  const [data, setData] = useState(INITIAL_DATA)
+  function updateFields(fields: Partial<FormData>) {
+    setData(prev => {
+      return { ...prev, ...fields }
+    })
+  }
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultistepForm([
+      <UserForm {...data} updateFields={updateFields} />,
+      <AddressForm {...data} updateFields={updateFields} />,
+      <AccountForm {...data} updateFields={updateFields} />,
+    ])
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  function onSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (!isLastStep) return next()
+    alert("Successful Account Creation")
+  }
 
   return (
-    <div>
-      <h1 className="m-3">Create a Store</h1>
-      <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-        className="m-3"
-      >
-        <TextField
-          required
-          id="storeName"
-          label="Store Name"
-
-        />
-        <TextField
-          required
-          id="storePhoneNumber"
-          label="Phone Number"
-        />
-        <TextField
-          required
-          id="email"
-          label="Email"
-        />
-        <FormControl  variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-      </Box>
+    <div
+      style={{
+        position: "relative",
+        background: "white",
+        border: "1px solid black",
+        padding: "2rem",
+        margin: "1rem",
+        borderRadius: ".5rem",
+        fontFamily: "Arial",
+        maxWidth: "max-content",
+      }}
+    >
+      <form onSubmit={onSubmit}>
+        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
+          {currentStepIndex + 1} / {steps.length}
+        </div>
+        {step}
+        <div
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            gap: ".5rem",
+            justifyContent: "flex-end",
+          }}
+        >
+          {!isFirstStep && (
+            <button type="button" onClick={back}>
+              Back
+            </button>
+          )}
+          <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+        </div>
+      </form>
     </div>
   )
 }
-
-
-/**
- * TODO: have a progress bar at the top
- * 
- * form - page 1
- *   - store name
- *   - phone number
- *   - email address
- *   - password (do validation at a later time)
- * 
- * form - page 2
- *   - address of business 
- *     - stretch goal: see if there is some validation api at a later time
- *     - show it on a map, at a later time
- * 
- * form - page 3
- *   - types of products you offer
- * 
- * form - page 4 
- *  deliveries/in store pickup
- *  add photo
- * 
- * submission and confirmation message, with loading indicator
- * 
- */
