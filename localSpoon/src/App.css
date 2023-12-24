@@ -1,3 +1,7 @@
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
 .navbar {
   padding: 1.5rem;
 }
@@ -15,12 +19,8 @@
 
 .nav-link {
   text-decoration: none;
-  color: black;
 }
 
 p {
-  font-size: 1.5rem;
-  font-weight: 300;
-  line-height: 1.5;
   margin-left: 1rem;
 }
