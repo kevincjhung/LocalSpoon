@@ -1,4 +1,5 @@
 import { FormWrapper } from "./FormWrapper"
+import { InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material"
 
 type StoreLocationData = {
 	address: string,
@@ -21,41 +22,56 @@ export function StoreLocationForm({
 	updateFields,
 }: StoreLocationFormProps) {
 	return (
-		<FormWrapper title="Create A Store">
-			<label>Address</label>
-			<input
+		<FormWrapper title="Locate Your Store">
+			<InputLabel htmlFor="outlined-adornment-storeAddress">
+				Store Address
+			</InputLabel>
+			<TextField
 				required
-				type="text"
+				id="storeAddress"
+				label="Store Address"
 				value={address}
-				onChange={e => updateFields({ address: e.target.value })}
+				onChange={(e) => updateFields({ address: e.target.value })}
 			/>
-			<label>City</label>
-			<input
+			<InputLabel htmlFor="outlined-adornment-storeCity">
+				Store City
+			</InputLabel>
+			<TextField
 				required
-				type="text"
+				id="storeCity"
+				label="Store City"
 				value={city}
-				onChange={e => updateFields({ city: e.target.value })}
+				onChange={(e) => updateFields({ city: e.target.value })}
 			/>
-			<label>State</label>
-			<input
+			<InputLabel htmlFor="outlined-adornment-storeState">
+				Store State
+			</InputLabel>
+			<TextField
 				required
-				type="text"
+				id="storeState"
+				label="Store State"
 				value={stateProvince}
-				onChange={e => updateFields({ stateProvince: e.target.value })}
+				onChange={(e) => updateFields({ stateProvince: e.target.value })}
 			/>
-			<label>Zip Code</label>
-			<input
+			<InputLabel htmlFor="outlined-adornment-storeZipCode">
+				Store Zip Code
+			</InputLabel>
+			<TextField
 				required
-				type="text"
+				id="storeZipCode"
+				label="Store Zip Code"
 				value={zipCode}
-				onChange={e => updateFields({ zipCode: e.target.value })}
+				onChange={(e) => updateFields({ zipCode: e.target.value })}
 			/>
-			<label>Country</label>
-			<input
+			<InputLabel htmlFor="outlined-adornment-storeCountry">
+				Store Country
+			</InputLabel>
+			<TextField
 				required
-				type="text"
+				id="storeCountry"
+				label="Store Country"
 				value={country}
-				onChange={e => updateFields({ country: e.target.value })}
+				onChange={(e) => updateFields({ country: e.target.value })}
 			/>
 		</FormWrapper>
 	)

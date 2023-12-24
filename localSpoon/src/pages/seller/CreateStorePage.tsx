@@ -7,7 +7,7 @@ import LinearProgress from '@mui/material/LinearProgress'; // Import LinearProgr
 import { Typography } from '@mui/material';
 
 // Component Imports
-import { StoreInfoForm } from '../../components/createStore/StoreInfoForm';
+import { StoreOwnerForm } from '../../components/createStore/StoreOwnerForm';
 import { StoreLocationForm } from '../../components/createStore/StoreLocationForm';
 import { StoreDescriptionForm } from '../../components/createStore/StoreDescriptionForm';
 import { StoreDeliveryForm } from '../../components/createStore/StoreDeliveryForm';
@@ -19,7 +19,7 @@ import { StoreSubmissionConfirmationForm } from '../../components/createStore/St
 import { useMultistepForm } from '../../hooks/useMultistepForm';
 
 type LocalSpoonFormData = {
-  storeName: string           // StoreInfoData
+  storeName: string           // StoreOwnerData
   phoneNumber: string 
   email: string 
   password: string 
@@ -51,7 +51,6 @@ const LocalSpoonInitialData: LocalSpoonFormData = {
 }
 
 
-
 export default function CreateStorePage() {
   const [data, setData] = useState(LocalSpoonInitialData)
 
@@ -63,7 +62,7 @@ export default function CreateStorePage() {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
   useMultistepForm([
-    <StoreInfoForm {...data} updateFields={updateFields} />,
+    <StoreOwnerForm {...data} updateFields={updateFields} />,
     <StoreLocationForm {...data} updateFields={updateFields} />,
     <StoreDescriptionForm {...data} updateFields={updateFields} />,
     <StoreDeliveryForm {...data} updateFields={updateFields} />,
