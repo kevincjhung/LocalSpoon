@@ -23,7 +23,7 @@ type StoreSubmissionFormProps = {
 
 export function StoreSubmissionConfirmationForm({ data }: StoreSubmissionFormProps) {
   return (
-    <FormWrapper title="Confirm the data">
+    <FormWrapper title="Confirmation">
         <ul>
           <li>Store Name: {data.storeName}</li>
           <li>Phone Number: {data.phoneNumber}</li>
