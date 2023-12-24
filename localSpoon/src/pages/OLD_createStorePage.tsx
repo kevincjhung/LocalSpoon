@@ -112,16 +112,7 @@ export default function CreateStorePage() {
         <button type="button">Previous</button>
       </div>
 
-      <div className='form-part-5 bg-yellow-100'>
-        <h1>What Does Your Ship Look Like?</h1>
-        <p>
-          Insert Image Upload UI Here
-        </p>
-        <button type="button">Next</button>
-        <button type="button">Previous</button>
-      </div>
-
-      <div className="form-part-6 bg-pink-100">
+      <div className="form-part-5 bg-pink-100">
         <h1>Form Info Confirmation UI</h1>
         <p>
           Insert Form Info Confirmation UI Here

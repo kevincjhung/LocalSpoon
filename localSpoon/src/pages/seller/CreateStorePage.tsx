@@ -1,63 +1,91 @@
 // Library imports
-import { useState, FormEvent } from 'react';
-import {AccountForm} from '../../components/createStore/AccountForm';
-import {UserForm} from '../../components/createStore/UserForm';
-import {AddressForm} from '../../components/createStore/AddressForm';
+// Library Imports
+import { useState, FormEvent } from 'react'
 
+// Component Imports
+import { StoreInfoForm } from '../../components/createStore/StoreInfoForm';
+import { StoreLocationForm } from '../../components/createStore/StoreLocationForm';
+import { StoreDescriptionForm } from '../../components/createStore/StoreDescriptionForm';
+import { StoreDeliveryForm } from '../../components/createStore/StoreDeliveryForm';
+
+
+// Custom Hook
 import { useMultistepForm } from '../../hooks/useMultistepForm';
 
 type FormData = {
-  firstName: string
-  lastName: string
-  age: string
-  street: string
-  city: string
-  state: string
-  zip: string
-  email: string
-  password: string
+  firstName: string     // userData
+  lastName: string      // userData
+  age: string           // userData
+  street: string        // addressData
+  city: string          // addressData
+  state: string         // addressData
+  zip: string           // addressData
+  email: string         // accountData
+  password: string      // accountData
 }
 
-const INITIAL_DATA: FormData = {
-  firstName: "",
-  lastName: "",
-  age: "",
-  street: "",
-  city: "",
-  state: "",
-  zip: "",
+type LocalSpoonFormData = {
+  storeName: string           // StoreInfoData
+  phoneNumber: string 
+  email: string 
+  password: string 
+  address: string             // StoreLocationData
+  city: string 
+  stateProvince: string 
+  zipCode: string 
+  country: string 
+  storeDescription: string    // storeDescriptionData 
+  storeCategory: string[] 
+  isStoreDelivery: boolean      // storeDeliveryData
+  storeDeliveryRadius: number 
+}
+const LocalSpoonInitialData: LocalSpoonFormData = {
+  storeName: "",
+  phoneNumber: "",
   email: "",
   password: "",
+  address: "",
+  city: "",
+  stateProvince: "",
+  zipCode: "",
+  country: "",
+  storeDescription: "",
+  storeCategory: [],
+  isStoreDelivery: false,
+  storeDeliveryRadius: 0,
 }
+
 
 
 
 export default function CreateStorePage() {
+  const [data, setData] = useState(LocalSpoonInitialData)
 
-  const [data, setData] = useState(INITIAL_DATA)
-  function updateFields(fields: Partial<FormData>) {
+  function updateFields(fields: Partial<LocalSpoonFormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <UserForm {...data} updateFields={updateFields} />,
-      <AddressForm {...data} updateFields={updateFields} />,
-      <AccountForm {...data} updateFields={updateFields} />,
+      <StoreInfoForm {...data} updateFields={updateFields} />,
+      <StoreLocationForm {...data} updateFields={updateFields} />,
+      <StoreDescriptionForm {...data} updateFields={updateFields} />,
+      <StoreDeliveryForm {...data} updateFields={updateFields} />
+      
     ])
 
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next()
-    alert("Successful Account Creation")
+    console.log(data)
   }
 
   return (
     <div
       style={{
         position: "relative",
-        background: "white",
+        background: "orange",
         border: "1px solid black",
         padding: "2rem",
         margin: "1rem",
