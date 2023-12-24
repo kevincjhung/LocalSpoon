@@ -1,6 +1,10 @@
-// Library imports
 // Library Imports
 import { useState, FormEvent } from 'react'
+
+// MaterialUI Imports
+import Button from '@mui/material/Button';
+import LinearProgress from '@mui/material/LinearProgress'; // Import LinearProgress
+import { Typography } from '@mui/material';
 
 // Component Imports
 import { StoreInfoForm } from '../../components/createStore/StoreInfoForm';
@@ -9,21 +13,10 @@ import { StoreDescriptionForm } from '../../components/createStore/StoreDescript
 import { StoreDeliveryForm } from '../../components/createStore/StoreDeliveryForm';
 import { StoreSubmissionConfirmationForm } from '../../components/createStore/StoreSubmissionConfirmationForm';
 
+
+
 // Custom Hook
 import { useMultistepForm } from '../../hooks/useMultistepForm';
-
-
-// type FormData = {
-//   firstName: string     // userData
-//   lastName: string      // userData
-//   age: string           // userData
-//   street: string        // addressData
-//   city: string          // addressData
-//   state: string         // addressData
-//   zip: string           // addressData
-//   email: string         // accountData
-//   password: string      // accountData
-// }
 
 type LocalSpoonFormData = {
   storeName: string           // StoreInfoData
@@ -37,9 +30,10 @@ type LocalSpoonFormData = {
   country: string 
   storeDescription: string    // storeDescriptionData 
   storeCategory: string[] 
-  isStoreDelivery: boolean      // storeDeliveryData
+  isStoreDelivery: boolean    // storeDeliveryData
   storeDeliveryRadius: number 
 }
+
 const LocalSpoonInitialData: LocalSpoonFormData = {
   storeName: "",
   phoneNumber: "",
@@ -58,62 +52,72 @@ const LocalSpoonInitialData: LocalSpoonFormData = {
 
 
 
-
 export default function CreateStorePage() {
   const [data, setData] = useState(LocalSpoonInitialData)
 
+  
   function updateFields(fields: Partial<LocalSpoonFormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-    useMultistepForm([
-      <StoreInfoForm {...data} updateFields={updateFields} />,
-      <StoreLocationForm {...data} updateFields={updateFields} />,
-      <StoreDescriptionForm {...data} updateFields={updateFields} />,
-      <StoreDeliveryForm {...data} updateFields={updateFields} />,
-      <StoreSubmissionConfirmationForm data={data} />,
-    ])
-
+  useMultistepForm([
+    <StoreInfoForm {...data} updateFields={updateFields} />,
+    <StoreLocationForm {...data} updateFields={updateFields} />,
+    <StoreDescriptionForm {...data} updateFields={updateFields} />,
+    <StoreDeliveryForm {...data} updateFields={updateFields} />,
+    <StoreSubmissionConfirmationForm data={data} />,
+  ])
+  
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next()
     console.log(data)
-  }
+}
 
-  return (
+const progress = (currentStepIndex / (steps.length - 1)) * 100; // Calculate progress percentage
+  
+return (
     <div
       style={{
         position: "relative",
-        background: "orange",
-        border: "1px solid black",
         padding: "2rem",
         margin: "1rem",
+        border: "1px solid black",
         borderRadius: ".5rem",
         fontFamily: "Arial",
         maxWidth: "max-content",
       }}
     >
-      <form onSubmit={onSubmit}>
-        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
-          {currentStepIndex + 1} / {steps.length}
-        </div>
+       <form onSubmit={onSubmit}>
+        <LinearProgress variant="determinate" value={progress} /> {/* Progress Bar */}
+        <Typography variant="body2" align="center" gutterBottom>
+          Step {currentStepIndex + 1} of {steps.length}
+        </Typography>
         {step}
         <div
           style={{
-            marginTop: "1rem",
-            display: "flex",
-            gap: ".5rem",
-            justifyContent: "flex-end",
+            display: 'flex',
+            gap: '.5rem',
+            justifyContent: 'flex-end',
           }}
         >
           {!isFirstStep && (
-            <button type="button" onClick={back}>
+            <Button 
+              type="button" 
+              onClick={back}
+              variant="outlined"
+            >
               Back
-            </button>
+            </Button>
           )}
-          <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+          <Button 
+            type="submit"
+            variant="outlined"
+          >
+            {isLastStep ? "Finish" : "Next"}
+          </Button>
         </div>
       </form>
     </div>
