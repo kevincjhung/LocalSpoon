@@ -14,7 +14,7 @@ import Analytics from './pages/seller/AnalyticsPage'
 import ProductPosting from './pages/seller/ProductPostingPage'
 import SellerOrders from './pages/seller/SellerOrdersPage'
 import Shop from './pages/seller/ShopPage'
-import Layout from './components/Layout'
+import Navbar from './components/Navbar'
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route 
             path='/seller/*'
-            element={<Layout />}
+            element={<Navbar />}
           >
             <Route path="create-store" element={<CreateStore />} />
             <Route index element={<SellerLanding />} />

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 export default function ShopPage(){
-  const { shopID} = useParams();
+  const { shopID } = useParams();
 
   return (
     <div>
