@@ -79,14 +79,16 @@ export default function CreateStorePage() {
 
   return (
     <div
-      style={{
-        position: "relative",
-        padding: "2rem",
-        margin: "1rem",
-        border: "1px solid black",
-        borderRadius: ".5rem",
-        width: "max-content",
-      }}
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "2rem",
+      border: "1px solid black",
+      borderRadius: ".5rem",
+      width: "max-content",
+      margin: "auto",
+    }}
     >
       <form onSubmit={onSubmit}>
         <LinearProgress variant="determinate" value={progress} /> {/* Progress Bar */}
