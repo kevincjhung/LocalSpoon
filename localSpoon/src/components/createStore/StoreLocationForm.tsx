@@ -1,5 +1,5 @@
 import { FormWrapper } from "./FormWrapper"
-import { InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material"
+import { InputLabel, TextField } from "@mui/material"
 
 type StoreLocationData = {
 	address: string,

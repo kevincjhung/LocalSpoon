@@ -20,18 +20,18 @@ import { useMultistepForm } from '../../hooks/useMultistepForm';
 
 type LocalSpoonFormData = {
   storeName: string           // StoreOwnerData
-  phoneNumber: string 
-  email: string 
-  password: string 
+  phoneNumber: string
+  email: string
+  password: string
   address: string             // StoreLocationData
-  city: string 
-  stateProvince: string 
-  zipCode: string 
-  country: string 
+  city: string
+  stateProvince: string
+  zipCode: string
+  country: string
   storeDescription: string    // storeDescriptionData 
-  storeCategory: string[] 
+  storeCategory: string[]
   isStoreDelivery: boolean    // storeDeliveryData
-  storeDeliveryRadius: number 
+  storeDeliveryRadius: number
 }
 
 const LocalSpoonInitialData: LocalSpoonFormData = {
@@ -54,30 +54,30 @@ const LocalSpoonInitialData: LocalSpoonFormData = {
 export default function CreateStorePage() {
   const [data, setData] = useState(LocalSpoonInitialData)
 
-  
+
   function updateFields(fields: Partial<LocalSpoonFormData>) {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-  useMultistepForm([
-    <StoreOwnerForm {...data} updateFields={updateFields} />,
-    <StoreLocationForm {...data} updateFields={updateFields} />,
-    <StoreDescriptionForm {...data} updateFields={updateFields} />,
-    <StoreDeliveryForm {...data} updateFields={updateFields} />,
-    <StoreSubmissionConfirmationForm data={data} />,
-  ])
-  
+    useMultistepForm([
+      <StoreOwnerForm {...data} updateFields={updateFields} />,
+      <StoreLocationForm {...data} updateFields={updateFields} />,
+      <StoreDescriptionForm {...data} updateFields={updateFields} />,
+      <StoreDeliveryForm {...data} updateFields={updateFields} />,
+      <StoreSubmissionConfirmationForm data={data} />,
+    ])
+
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isLastStep) return next()
     console.log(data)
-}
+  }
 
-const progress = (currentStepIndex / (steps.length - 1)) * 100; // Calculate progress percentage
-  
-return (
+  const progress = (currentStepIndex / (steps.length - 1)) * 100; // Calculate progress percentage
+
+  return (
     <div
       style={{
         position: "relative",
@@ -85,11 +85,10 @@ return (
         margin: "1rem",
         border: "1px solid black",
         borderRadius: ".5rem",
-        fontFamily: "Arial",
-        maxWidth: "max-content",
+        width: "max-content",
       }}
     >
-       <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <LinearProgress variant="determinate" value={progress} /> {/* Progress Bar */}
         <Typography variant="body2" align="center" gutterBottom>
           Step {currentStepIndex + 1} of {steps.length}
@@ -98,20 +97,21 @@ return (
         <div
           style={{
             display: 'flex',
+            marginTop: '1rem',
             gap: '.5rem',
             justifyContent: 'flex-end',
           }}
         >
           {!isFirstStep && (
-            <Button 
-              type="button" 
+            <Button
+              type="button"
               onClick={back}
               variant="outlined"
             >
               Back
             </Button>
           )}
-          <Button 
+          <Button
             type="submit"
             variant="outlined"
           >
