@@ -14,7 +14,7 @@ export default function Home() {
     >
       <img
         src="/localscoop-logo.svg"
-        alt="Company Logo"
+        alt="Localscoop Logo"
         style={{ maxWidth: "100%", height: "auto", marginBottom: "8px" }}
       />
       <Button
