@@ -1,15 +1,21 @@
+import * as React from 'react'
+
 // React Router Imports
 import { Outlet } from 'react-router-dom'
+
+// MaterialUI Imports
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import * as React from 'react'
 import { Link } from 'react-router-dom'
+import { Typography } from '@mui/material';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+
 
 
 export default function Navbar() {
 	const [value, setValue] = React.useState('Main');
-	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+	const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};
 
@@ -19,17 +25,17 @@ export default function Navbar() {
 		<>
 			<nav className="">
 				<div className="navbar-grid-container">
-					<div className="top-left">
-						
+					<div className="top-left mt-3">
+						<img src="/localscoop-logo.svg" alt="localscoop logo" width={35} height={35}/>
 					</div>
 					<div className="top-middle">
 						
 					</div>
-					<div className="top-right">
-						
+					<div className="top-right mt-3">
+						<p>Account</p>
 					</div>
 					<div className="middle-left">
-						<h1 className="text-xl">{placeHolderStoreName}</h1>
+						<Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>{placeHolderStoreName}</Typography>
 					</div>
 					<div className="middle-middle">
 						
@@ -41,12 +47,10 @@ export default function Navbar() {
 						<Box sx={{ 
 							margin: "0",
 							padding: "0"
-
 						 }}>
 							<Tabs
 								value={value}
 								onChange={handleChange}
-								textColor="primary"
 								indicatorColor="primary"
 								aria-label="secondary tabs example"
 							>

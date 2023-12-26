@@ -1,5 +1,4 @@
 // Library Imports
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
 import theme from './theme';

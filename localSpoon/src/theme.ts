@@ -1,7 +1,5 @@
 // src/theme.ts
 import { createTheme } from '@mui/material/styles';
-import { purple, green } from '@mui/material/colors';
-
 
 // Define your custom theme
 const theme = createTheme({
@@ -15,9 +13,15 @@ const theme = createTheme({
       text: {
         primary: '#0A0908',
       },
+      background: {
+        default: '#F7F5F3',
+      },
     },
     typography: {
       fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    },
+    shape: {
+      borderRadius: 8,
     },
     components: {
       MuiCssBaseline: {
@@ -32,9 +36,14 @@ const theme = createTheme({
           }
         `,
       },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            border: '1px solid',
+          },
+        },
+      },
     },
-    shape: {
-      borderRadius: 8,
-    }
   });
 export default theme;

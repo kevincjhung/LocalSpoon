@@ -19,7 +19,7 @@ export function StoreDescriptionForm({
 	updateFields,
 }: StoreDescriptionFormProps) {
 
-	const handleCategoryChange = (event: React.SyntheticEvent, value: string[]) => {
+	const handleCategoryChange = (_event: React.SyntheticEvent, value: string[]) => {
     updateFields({ storeCategory: value });
   }
 

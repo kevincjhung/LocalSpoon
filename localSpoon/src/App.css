@@ -9,7 +9,6 @@
 }
 
 .navbar-grid-container div {
-  /* border: 1px solid red; */
   min-width: 0; /* Ensures that content does not affect the minimum width */
   min-height: 0; 
 }
@@ -18,6 +17,7 @@
   margin: 0; /* Remove default margin for paragraphs inside the div */
 }
 
+/* Nav Bar TODO: rename the classes */
 .bottom-left {
   align-self: end;
   position: absolute;
@@ -29,3 +29,6 @@
   justify-self: end;
 }
 
+.middle-left {
+  align-self: end;
+}
