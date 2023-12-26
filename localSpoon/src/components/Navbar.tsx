@@ -7,15 +7,33 @@ export default function Navbar() {
 		<>
 			<nav className="">
 				<div className="navbar-grid-container">
-					<div><p>AAAAA</p></div>
-					<div><p>BBBBB</p></div>
-					<div><p>CCCCC</p></div>
-					<div><p>DDDDD</p></div>
-					<div><p>EEEEE</p></div>
-					<div><p>FFFFF</p></div>
-					<div><p>GGGGG</p></div>
-					<div><p>HHHHH</p></div>
-					<div><p>IIIII</p></div>
+					<div className="top-left">
+						<p>A</p>
+					</div>
+					<div className="top-middle">
+						<p>B</p>
+					</div>
+					<div className="top-right">
+						<p>C</p>
+					</div>
+					<div className="middle-left">
+						<p>D</p>
+					</div>
+					<div className="middle-middle">
+						<p>E</p>
+					</div>
+					<div className="middle-right">
+						<p>F</p>
+					</div>
+					<div className='bottom-left'>
+						<p>G</p>
+					</div>
+					<div className="bottom-middle">
+						<p>H</p>
+					</div>
+					<div className="bottom-right">
+						<p>I</p>
+					</div>
 				</div>
 			</nav>
 			<Outlet />

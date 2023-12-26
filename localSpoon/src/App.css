@@ -1,15 +1,22 @@
-
-.nav-link {
-  text-decoration: none;
-}
-
 .navbar-grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
   grid-template-rows: repeat(3, 1fr);    /* 3 rows with equal height */
   height: 25vh; 
+  width: 77%;
+  margin: auto;
 }
 
 .navbar-grid-container div {
   border: 1px solid red;
+  min-width: 0; /* Ensures that content does not affect the minimum width */
+  min-height: 0; 
+}
+
+.navbar-grid-container div p {
+  margin: 0; /* Remove default margin for paragraphs inside the div */
+}
+
+.bottom-left, .bottom-middle, .bottom-right {
+  align-self: end;
 }
