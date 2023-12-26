@@ -1,26 +1,15 @@
-/* @import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities'; */
-
-.navbar {
-  padding: 1.5rem;
-}
-
-.nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.nav-item {
-  margin-right: 15px;
-}
 
 .nav-link {
   text-decoration: none;
 }
 
-p {
-  margin-left: 1rem;
+.navbar-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns with equal width */
+  grid-template-rows: repeat(3, 1fr);    /* 3 rows with equal height */
+  height: 25vh; 
+}
+
+.navbar-grid-container div {
+  border: 1px solid red;
 }
