@@ -49,11 +49,6 @@ export default function Navbar() {
 								textColor="primary"
 								indicatorColor="primary"
 								aria-label="secondary tabs example"
-								TabIndicatorProps={{
-									style: {
-										backgroundColor: "#E3974F"
-									}
-								}}
 							>
 								<Tab
                   value="Main"

@@ -1,30 +1,30 @@
 // Library Imports
-import * as React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
+import theme from './theme';
 
 // Styling Imports
-import './App.css'
+import './App.css';
 
 // Page imports
-import Home from './pages/Home'
-
-import CreateStore from './pages/seller/CreateStorePage'
-import SellerLanding from './pages/seller/SellerLandingPage'
-import Analytics from './pages/seller/AnalyticsPage'
-import ProductPosting from './pages/seller/ProductPostingPage'
-import SellerOrders from './pages/seller/SellerOrdersPage'
-import Shop from './pages/seller/ShopPage'
-import Navbar from './components/Navbar'
+import Home from './pages/Home';
+import CreateStore from './pages/seller/CreateStorePage';
+import SellerLanding from './pages/seller/SellerLandingPage';
+import Analytics from './pages/seller/AnalyticsPage';
+import ProductPosting from './pages/seller/ProductPostingPage';
+import SellerOrders from './pages/seller/SellerOrdersPage';
+import Shop from './pages/seller/ShopPage';
+import Navbar from './components/Navbar';
 
 function App() {
-
   return (
-    <React.StrictMode>
-      <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route 
-            path='/seller/*'
+          <Route
+            path="/seller/*"
             element={<Navbar />}
           >
             <Route path="create-store" element={<CreateStore />} />
@@ -35,9 +35,9 @@ function App() {
             <Route path="shop/:shopID" element={<Shop />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </React.StrictMode>
-  )
+      </Router>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
