@@ -132,3 +132,7 @@ dist
 
 # Developer Notes
 NOTES.md
+schema.txt
+
+# Database model
+*.dbml
