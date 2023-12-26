@@ -1,11 +1,7 @@
 import { useState } from "react"
-
 import { FormWrapper } from "./FormWrapper"
 import Switch from '@mui/material/Switch';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
@@ -19,10 +15,8 @@ type StoreDeliveryFormProps = StoreDeliveryData & {
 }
 
 
-
 export function StoreDeliveryForm({
 	isStoreDelivery,
-	storeDeliveryRadius,
 	updateFields,
 }: StoreDeliveryFormProps) {
 	const [deliveryRadius, setDeliveryRadius] = useState(0);
