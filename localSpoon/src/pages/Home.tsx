@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 
 export default function Home() {
   return (
+    <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -24,6 +25,15 @@ export default function Home() {
         style={{ marginTop: "8px" }}
       >
         For Businesses
+      </Button>
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        href="/seller"
+        style={{ marginTop: "8px" }}
+      >
+        For Customers
       </Button>
     </div>
   );
