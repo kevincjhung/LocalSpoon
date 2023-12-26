@@ -1,6 +1,6 @@
 export default function SellerLandingPage(){
   return (
-    <div>
+    <div >
       <p>Seller Landing Page Under Construction</p>
     </div>
   )

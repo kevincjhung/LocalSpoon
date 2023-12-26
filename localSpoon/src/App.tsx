@@ -30,7 +30,7 @@ function App() {
             <Route path="create-store" element={<CreateStore />} />
             <Route index element={<SellerLanding />} />
             <Route path="analytics" element={<Analytics />} />
-            <Route path="post-product" element={<ProductPosting />} />
+            <Route path="add-product" element={<ProductPosting />} />
             <Route path="orders" element={<SellerOrders />} />
             <Route path="shop/:shopID" element={<Shop />} />
           </Route>
