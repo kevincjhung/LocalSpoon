@@ -1,8 +1,30 @@
+import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
+
 export default function Home() {
-	return (
-		<div>
-			<h1>Home Page</h1>
-			<a href="/seller">Click here to Go to /seller</a>
-		</div>
-	)
+  return (
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh", // This ensures the container takes the full viewport height
+      }}
+    >
+      <img
+        src="/localscoop-logo.svg"
+        alt="Company Logo"
+        style={{ maxWidth: "100%", height: "auto", marginBottom: "8px" }}
+      />
+      <Button
+        variant="contained"
+        size="large"
+        color="secondary"
+        href="/seller"
+        style={{ marginTop: "8px" }}
+      >
+        For Businesses
+      </Button>
+    </div>
+  );
 }
