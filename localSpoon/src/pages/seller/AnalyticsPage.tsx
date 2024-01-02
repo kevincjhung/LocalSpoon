@@ -1,7 +1,11 @@
+import TopSellingProducts from "../../components/analytics/TopSellingProducts"
+
 export default function AnalyticsPage(){
   return (
     <div>
-			<p>Analytics Page Under Construction</p>
+      <div className="p-4 ">
+        <TopSellingProducts/>
+      </div>
     </div>
   )
 }
