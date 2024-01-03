@@ -5,8 +5,8 @@ import {prisma } from '../database-client';
 
 // /* GET users listing. */
 router.get('/', async (req, res) => {
-  const users = await prisma.user.findMany()
-  res.send(users)
+  // const users = await prisma.user.findMany()
+  res.send("users")
 
 });
 

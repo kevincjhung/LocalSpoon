@@ -7,28 +7,111 @@ datasource db {
   url      = env("PG_DB_URL")
 }
 
-// SQLite
-// datasource db {
-//   provider = "sqlite"
-//   url      = "file:./dev.db"
-// }
-
-
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Buyer {
+  id            Int             @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  phone_number  String
+  gender        String
+  date_of_birth DateTime
+  auth_id       Int
+  // Auth          Auth            @relation(fields: [auth_id], references: [id])
+  PurchaseOrder PurchaseOrder[]
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  viewCount Int      @default(0)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model Seller {
+  id            Int      @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  phone_number  String
+  gender        String
+  date_of_birth DateTime
+  store_id      Int
+  auth_id       Int
+  // Auth          Auth     @relation(fields: [auth_id], references: [id])
+  Store         Store    @relation(fields: [store_id], references: [id])
+}
+
+// model Auth {
+//   id       Int      @id @default(autoincrement())
+//   email    String   @unique
+//   password String
+//   Buyer    Buyer[]
+//   Seller   Seller[]
+// }
+
+model Store {
+  id                       Int                        @id @default(autoincrement())
+  store_name               String
+  store_description        String
+  store_category_id        Int
+  supports_delivery        Boolean
+  store_delivery_radius    Int
+  address                  String
+  city                     String
+  state_province           String
+  zipcode                  String
+  country                  String
+  Seller                   Seller[]
+  store_category           StoreCategory              @relation(fields: [store_category_id], references: [id])
+  StoreCategoryAssociation StoreCategoryAssociation[]
+  Product                  Product[]
+}
+
+model StoreCategory {
+  id                       Int                        @id @default(autoincrement())
+  name                     String
+  Store                    Store[]
+  StoreCategoryAssociation StoreCategoryAssociation[]
+}
+
+model StoreCategoryAssociation {
+  id          Int           @id @default(autoincrement())
+  store_id    Int
+  category_id Int
+  store       Store         @relation(fields: [store_id], references: [id])
+  category    StoreCategory @relation(fields: [category_id], references: [id])
+}
+
+model Product {
+  id                Int                 @id @default(autoincrement())
+  store_id          Int
+  name              String
+  description       String
+  price             Float
+  category_id       Int
+  store             Store               @relation(fields: [store_id], references: [id])
+  category          Category            @relation(fields: [category_id], references: [id])
+  PurchaseOrderItem PurchaseOrderItem[]
+  ProductPhoto      ProductPhoto[]
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+}
+
+model PurchaseOrder {
+  id                Int                 @id @default(autoincrement())
+  buyer_id          Int
+  purchase_date     DateTime
+  Buyer             Buyer               @relation(fields: [buyer_id], references: [id])
+  PurchaseOrderItem PurchaseOrderItem[]
+}
+
+model PurchaseOrderItem {
+  id         Int           @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  quantity   Int
+  order      PurchaseOrder @relation(fields: [order_id], references: [id])
+  product    Product       @relation(fields: [product_id], references: [id])
+}
+
+model ProductPhoto {
+  id           Int     @id @default(autoincrement())
+  product_id   Int
+  resource_url String
+  product      Product @relation(fields: [product_id], references: [id])
 }
