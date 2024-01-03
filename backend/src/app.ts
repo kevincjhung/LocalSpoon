@@ -1,36 +1,24 @@
+import createError from 'http-errors';
 import express from 'express'
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
 import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-import createError from 'http-errors';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
 const app = express()
 
-app.use(express.json())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
-app.get('/', async (req, res) => {
-  res.json({ hello: 'world' })
-})
-
-app.post('/', async (req, res) => {
-  const { name, email } = req.body
-  res.json({ name, email })
-})
-
-
-app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany()
-  res.json(users)
-})
+// Router middleware
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 
 app.use(function(req, res, next) {
@@ -47,7 +35,4 @@ app.use(function(err: any, req: express.Request, res: express.Response, next: ex
 });
 
 
-const server = app.listen(3000, () =>
-  console.log(`
-🚀 Server ready at: http://localhost:3000/users`),
-)
+app.listen(3000, () => console.log(`\n⛵️Server ready at: http://localhost:3000/`))
