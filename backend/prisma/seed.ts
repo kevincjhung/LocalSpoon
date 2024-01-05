@@ -3,7 +3,7 @@ import { create } from 'domain';
 
 const prisma = new PrismaClient();
 
-// TODO: This will be replaced with faker.js
+// todo: delete
 function createRandomString() {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let randomString = '';
@@ -12,7 +12,7 @@ function createRandomString() {
 	}
 	return randomString;
 }
-
+// todo: delete
 function createRandomInt() {
 	return Math.floor(Math.random() * 1000);
 }
@@ -89,7 +89,6 @@ const storeData: Prisma.StoreCreateInput[] = [
 						create: {
 							ProductCategory: {
 								create: {
-									id: createRandomInt(),
 									name: createRandomString(),
 								},
 							},
