@@ -136,6 +136,3 @@ function createStore() {
 	}
 }
 
-
-// console.log(JSON.stringify(createProduct(1), null, 2))
-

@@ -1,9 +1,8 @@
 import { PrismaClient, Prisma } from '@prisma/client';
-import { create } from 'domain';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
-// todo: delete
 function createRandomString() {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let randomString = '';
@@ -12,51 +11,72 @@ function createRandomString() {
 	}
 	return randomString;
 }
-// todo: delete
+
 function createRandomInt() {
 	return Math.floor(Math.random() * 1000);
 }
 
-const buyerData: Prisma.BuyerCreateInput[] = [
-	{
-		first_name: 'John',
-		last_name: 'Doe',
-		phone_number: '1234567890',
-		gender: 'Male',
-		date_of_birth: new Date('1990-01-01'),
-		Auth: {
-			create: {
-				email: createRandomString() + '@gmail.com',
-				password: 'securepassword',
+async function seedBuyer(){
+	let first_name =  faker.person.firstName();
+	let last_name =  faker.person.lastName();
+
+	const createdBuyer = await prisma.buyer.create({
+		data: {
+			first_name,
+			last_name,
+			phone_number: faker.phone.number(),
+			gender: ((Math.random() * 10) % 2 == 0) ? "Male" : "Female",
+			date_of_birth: faker.date.between({ from: '1940-01-01T00:00:00.000Z', to: '2023-01-01T00:00:00.000Z' }),
+			Auth: {
+				create: {
+					email: `${first_name.toLowerCase()}.${last_name.toLowerCase() + (Math.random() * 100).toFixed(3).toString()}@gmail.com`,
+					password: faker.internet.password({ length: 20, memorable: true }),
+				},
 			},
 		},
-	},
-	{
-		first_name: 'Alice',
-		last_name: 'Smith',
-		phone_number: '9876543210',
-		gender: 'Female',
-		date_of_birth: new Date('1985-05-15'),
-		Auth: {
-			create: {
-				email: createRandomString() + '@gmail.com',
-				password: 'strongpassword',
-			},
-		},
-	}, {
-		first_name: 'Jacques',
-		last_name: 'Cousteau',
-		phone_number: '9876543210',
-		gender: 'Male',
-		date_of_birth: new Date('1989-05-15'),
-		Auth: {
-			create: {
-				email: createRandomString() + '@gmail.com',
-				password: 'strongpassword',
-			},
-		},
-	},
-];
+	});
+	console.log(createdBuyer)
+}
+
+
+
+
+
+async function seedData() {
+	try {
+		seedBuyer() // TESTED MANUALLY
+		// seedStore();
+		// seedPurchaseOrdersAndAssociations();
+	} catch (error) {
+		console.error('Error during seeding:', error);
+	} finally {
+		await prisma.$disconnect();
+	}
+}
+
+
+try {
+	seedData();
+} catch (e) {
+	console.error(e);
+	prisma.$disconnect();
+	process.exit(1);
+} finally {
+	console.log('...Seed Script Terminated \n Disconnected from Prisma Client');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const storeData: Prisma.StoreCreateInput[] = [
 	{
@@ -134,16 +154,6 @@ const storeData: Prisma.StoreCreateInput[] = [
 	}
 ]
 
-async function seedBuyers() {
-	for (const buyer of buyerData) {
-		const createdBuyer = await prisma.buyer.create({
-			data: buyer,
-		});
-		console.log(`Created buyer with id: ${createdBuyer.id}`);
-	}
-	console.log('\n')
-}
-
 async function seedStore() {
 	for (const store of storeData) {
 		const createdStore = await prisma.store.create({
@@ -153,6 +163,18 @@ async function seedStore() {
 	}
 	console.log('\n')
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 const purchaseOrderProductAssociationData: Prisma.PurchaseOrderProductAssociationCreateInput[] = [
 	{
@@ -197,25 +219,3 @@ async function seedPurchaseOrdersAndAssociations() {
   }
 }
 
-async function seedData() {
-	try {
-		seedBuyers();
-		seedStore();
-		seedPurchaseOrdersAndAssociations();
-	} catch (error) {
-		console.error('Error during seeding:', error);
-	} finally {
-		await prisma.$disconnect();
-	}
-}
-
-
-try {
-	seedData();
-} catch (e) {
-	console.error(e);
-	prisma.$disconnect();
-	process.exit(1);
-} finally {
-	console.log('...Seed Script Terminated \n Disconnected from Prisma Client');
-}
