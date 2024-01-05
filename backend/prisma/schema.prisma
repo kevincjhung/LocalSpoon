@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("PG_DB_URL")
+  url      = env("LOCAL_PG_DB_URL")
 }
 
 model Buyer {
@@ -15,10 +15,13 @@ model Buyer {
   gender        String
   date_of_birth DateTime
   auth_id       Int
-  // Auth          Auth            @relation(fields: [auth_id], references: [id])
+  Auth          Auth            @relation(fields: [auth_id], references: [id])
+  // Product       Product?        @relation(fields: [productId], references: [id])
+  // productId     Int?
   PurchaseOrder PurchaseOrder[]
 }
 
+// Seller model
 model Seller {
   id            Int      @id @default(autoincrement())
   first_name    String
@@ -28,90 +31,109 @@ model Seller {
   date_of_birth DateTime
   store_id      Int
   auth_id       Int
-  // Auth          Auth     @relation(fields: [auth_id], references: [id])
+  Auth          Auth     @relation(fields: [auth_id], references: [id])
   Store         Store    @relation(fields: [store_id], references: [id])
+  Product       Product? @relation(fields: [productId], references: [id])
+  productId     Int?
 }
 
-// model Auth {
-//   id       Int      @id @default(autoincrement())
-//   email    String   @unique
-//   password String
-//   Buyer    Buyer[]
-//   Seller   Seller[]
-// }
+// Auth model
+model Auth {
+  id                 Int       @id @default(autoincrement())
+  email              String    @unique
+  password           String
+  token              String?
+  token_expiry       DateTime?
+  is_active          Boolean   @default(true)
+  is_email_verified  Boolean   @default(false)
+  is_phone_verified  Boolean   @default(false)
+  reset_token        String?
+  reset_token_expiry DateTime?
+  last_login         DateTime?
+  Buyer              Buyer[]
+  Seller             Seller[]
+}
 
+// Store model
 model Store {
-  id                       Int                        @id @default(autoincrement())
-  store_name               String
-  store_description        String
-  store_category_id        Int
-  supports_delivery        Boolean
-  store_delivery_radius    Int
-  address                  String
-  city                     String
-  state_province           String
-  zipcode                  String
-  country                  String
-  Seller                   Seller[]
-  store_category           StoreCategory              @relation(fields: [store_category_id], references: [id])
-  StoreCategoryAssociation StoreCategoryAssociation[]
-  Product                  Product[]
+  id                    Int          @id @default(autoincrement())
+  store_name            String
+  store_description     String?
+  supports_delivery     Boolean
+  store_delivery_radius Int
+  address               String
+  city                  String
+  state_province        String
+  zipcode               String
+  country               String
+  Seller                Seller[]
+  Product               Product[]
+  store_photos          StorePhoto[]
 }
 
-model StoreCategory {
-  id                       Int                        @id @default(autoincrement())
-  name                     String
-  Store                    Store[]
-  StoreCategoryAssociation StoreCategoryAssociation[]
-}
-
-model StoreCategoryAssociation {
-  id          Int           @id @default(autoincrement())
-  store_id    Int
-  category_id Int
-  store       Store         @relation(fields: [store_id], references: [id])
-  category    StoreCategory @relation(fields: [category_id], references: [id])
-}
-
-model Product {
-  id                Int                 @id @default(autoincrement())
-  store_id          Int
-  name              String
-  description       String
-  price             Float
-  category_id       Int
-  store             Store               @relation(fields: [store_id], references: [id])
-  category          Category            @relation(fields: [category_id], references: [id])
-  PurchaseOrderItem PurchaseOrderItem[]
-  ProductPhoto      ProductPhoto[]
-}
-
-model Category {
-  id      Int       @id @default(autoincrement())
+// ProductCategory model
+model ProductCategory {
+  id      Int                         @id @default(autoincrement())
   name    String
-  Product Product[]
+  Product ProductCategoryAssignment[]
 }
 
+// ProductCategoryAssignment model
+model ProductCategoryAssignment {
+  id                  Int             @id @default(autoincrement())
+  product_id          Int
+  product_category_id Int
+  Product             Product         @relation(fields: [product_id], references: [id])
+  ProductCategory     ProductCategory @relation(fields: [product_category_id], references: [id])
+}
+
+// Product model
+model Product {
+  id                              Int                               @id @default(autoincrement())
+  store_id                        Int
+  name                            String
+  description                     String
+  price                           Float
+  PurchaseOrderProductAssociation PurchaseOrderProductAssociation[]
+  ProductCategoryAssignment       ProductCategoryAssignment[]
+  // Buyer                           Buyer[]
+  Seller                          Seller[]
+  product_photos                  ProductPhoto[]
+  Store                           Store?                            @relation(fields: [storeId], references: [id])
+  storeId                         Int?
+}
+
+// PurchaseOrder model
 model PurchaseOrder {
-  id                Int                 @id @default(autoincrement())
-  buyer_id          Int
-  purchase_date     DateTime
-  Buyer             Buyer               @relation(fields: [buyer_id], references: [id])
-  PurchaseOrderItem PurchaseOrderItem[]
+  id                              Int                               @id @default(autoincrement())
+  buyer_id                        Int
+  purchase_date                   DateTime
+  PurchaseOrderProductAssociation PurchaseOrderProductAssociation[]
+  Buyer                           Buyer                             @relation(fields: [buyer_id], references: [id])
 }
 
-model PurchaseOrderItem {
-  id         Int           @id @default(autoincrement())
-  order_id   Int
-  product_id Int
-  quantity   Int
-  order      PurchaseOrder @relation(fields: [order_id], references: [id])
-  product    Product       @relation(fields: [product_id], references: [id])
+// PurchaseOrderProductAssociation model
+model PurchaseOrderProductAssociation {
+  id                Int           @id @default(autoincrement())
+  purchase_order_id Int
+  product_id        Int
+  quantity          Int
+  PurchaseOrder     PurchaseOrder @relation(fields: [purchase_order_id], references: [id])
+  Product           Product       @relation(fields: [product_id], references: [id])
 }
 
+// ProductPhoto model
 model ProductPhoto {
   id           Int     @id @default(autoincrement())
   product_id   Int
   resource_url String
-  product      Product @relation(fields: [product_id], references: [id])
+  Product      Product @relation(fields: [product_id], references: [id])
+}
+
+// StorePhoto model
+model StorePhoto {
+  id           Int    @id @default(autoincrement())
+  store_id     Int
+  resource_url String
+  Store        Store  @relation(fields: [store_id], references: [id])
 }

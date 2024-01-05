@@ -3,11 +3,9 @@ import express from 'express'
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import { Prisma, PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
-
+// Import routes
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const buyersRouter = require('./routes/buyers');
 
 const app = express()
 
@@ -18,7 +16,7 @@ app.use(cookieParser());
 
 // Router middleware
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/buyers', buyersRouter);
 
 
 app.use(function(req, res, next) {
@@ -35,4 +33,4 @@ app.use(function(err: any, req: express.Request, res: express.Response, next: ex
 });
 
 
-app.listen(3000, () => console.log(`\n⛵️Server ready at: http://localhost:3000/`))
+app.listen(3000, () => console.log(`\n Server ready at: http://localhost:3000/`))

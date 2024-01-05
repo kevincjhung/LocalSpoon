@@ -1,13 +1,12 @@
 import express from 'express';
 const router = express.Router();
 
-import {prisma } from '../database-client';
+import { prisma } from '../database-client';
 
 // /* GET users listing. */
 router.get('/', async (req, res) => {
-  // const users = await prisma.user.findMany()
-  res.send("users")
-
+  const buyers = await prisma.buyer.findMany();  
+  res.send(buyers)
 });
 
 

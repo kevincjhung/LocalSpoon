@@ -7,6 +7,7 @@ CREATE TABLE "Buyer" (
     "gender" TEXT NOT NULL,
     "date_of_birth" TIMESTAMP(3) NOT NULL,
     "auth_id" INTEGER NOT NULL,
+    "productId" INTEGER,
 
     CONSTRAINT "Buyer_pkey" PRIMARY KEY ("id")
 );
@@ -21,6 +22,7 @@ CREATE TABLE "Seller" (
     "date_of_birth" TIMESTAMP(3) NOT NULL,
     "store_id" INTEGER NOT NULL,
     "auth_id" INTEGER NOT NULL,
+    "productId" INTEGER,
 
     CONSTRAINT "Seller_pkey" PRIMARY KEY ("id")
 );
@@ -30,6 +32,14 @@ CREATE TABLE "Auth" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "token" TEXT,
+    "token_expiry" TIMESTAMP(3),
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "is_email_verified" BOOLEAN NOT NULL DEFAULT false,
+    "is_phone_verified" BOOLEAN NOT NULL DEFAULT false,
+    "reset_token" TEXT,
+    "reset_token_expiry" TIMESTAMP(3),
+    "last_login" TIMESTAMP(3),
 
     CONSTRAINT "Auth_pkey" PRIMARY KEY ("id")
 );
@@ -38,8 +48,7 @@ CREATE TABLE "Auth" (
 CREATE TABLE "Store" (
     "id" SERIAL NOT NULL,
     "store_name" TEXT NOT NULL,
-    "store_description" TEXT NOT NULL,
-    "store_category_id" INTEGER NOT NULL,
+    "store_description" TEXT,
     "supports_delivery" BOOLEAN NOT NULL,
     "store_delivery_radius" INTEGER NOT NULL,
     "address" TEXT NOT NULL,
@@ -52,20 +61,20 @@ CREATE TABLE "Store" (
 );
 
 -- CreateTable
-CREATE TABLE "StoreCategory" (
+CREATE TABLE "ProductCategory" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
 
-    CONSTRAINT "StoreCategory_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "ProductCategory_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "StoreCategoryAssociation" (
+CREATE TABLE "ProductCategoryAssignment" (
     "id" SERIAL NOT NULL,
-    "store_id" INTEGER NOT NULL,
-    "category_id" INTEGER NOT NULL,
+    "product_id" INTEGER NOT NULL,
+    "product_category_id" INTEGER NOT NULL,
 
-    CONSTRAINT "StoreCategoryAssociation_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "ProductCategoryAssignment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -75,17 +84,9 @@ CREATE TABLE "Product" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "category_id" INTEGER NOT NULL,
+    "storeId" INTEGER,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Category" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -98,13 +99,13 @@ CREATE TABLE "PurchaseOrder" (
 );
 
 -- CreateTable
-CREATE TABLE "PurchaseOrderItem" (
+CREATE TABLE "PurchaseOrderProductAssociation" (
     "id" SERIAL NOT NULL,
-    "order_id" INTEGER NOT NULL,
+    "purchase_order_id" INTEGER NOT NULL,
     "product_id" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
 
-    CONSTRAINT "PurchaseOrderItem_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "PurchaseOrderProductAssociation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -116,11 +117,23 @@ CREATE TABLE "ProductPhoto" (
     CONSTRAINT "ProductPhoto_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "StorePhoto" (
+    "id" SERIAL NOT NULL,
+    "store_id" INTEGER NOT NULL,
+    "resource_url" TEXT NOT NULL,
+
+    CONSTRAINT "StorePhoto_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Auth_email_key" ON "Auth"("email");
 
 -- AddForeignKey
 ALTER TABLE "Buyer" ADD CONSTRAINT "Buyer_auth_id_fkey" FOREIGN KEY ("auth_id") REFERENCES "Auth"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Buyer" ADD CONSTRAINT "Buyer_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Seller" ADD CONSTRAINT "Seller_auth_id_fkey" FOREIGN KEY ("auth_id") REFERENCES "Auth"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -129,28 +142,28 @@ ALTER TABLE "Seller" ADD CONSTRAINT "Seller_auth_id_fkey" FOREIGN KEY ("auth_id"
 ALTER TABLE "Seller" ADD CONSTRAINT "Seller_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Store" ADD CONSTRAINT "Store_store_category_id_fkey" FOREIGN KEY ("store_category_id") REFERENCES "StoreCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Seller" ADD CONSTRAINT "Seller_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "StoreCategoryAssociation" ADD CONSTRAINT "StoreCategoryAssociation_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ProductCategoryAssignment" ADD CONSTRAINT "ProductCategoryAssignment_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "StoreCategoryAssociation" ADD CONSTRAINT "StoreCategoryAssociation_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "StoreCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ProductCategoryAssignment" ADD CONSTRAINT "ProductCategoryAssignment_product_category_id_fkey" FOREIGN KEY ("product_category_id") REFERENCES "ProductCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_storeId_fkey" FOREIGN KEY ("storeId") REFERENCES "Store"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PurchaseOrder" ADD CONSTRAINT "PurchaseOrder_buyer_id_fkey" FOREIGN KEY ("buyer_id") REFERENCES "Buyer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PurchaseOrderItem" ADD CONSTRAINT "PurchaseOrderItem_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "PurchaseOrder"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PurchaseOrderProductAssociation" ADD CONSTRAINT "PurchaseOrderProductAssociation_purchase_order_id_fkey" FOREIGN KEY ("purchase_order_id") REFERENCES "PurchaseOrder"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PurchaseOrderItem" ADD CONSTRAINT "PurchaseOrderItem_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PurchaseOrderProductAssociation" ADD CONSTRAINT "PurchaseOrderProductAssociation_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductPhoto" ADD CONSTRAINT "ProductPhoto_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "StorePhoto" ADD CONSTRAINT "StorePhoto_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
