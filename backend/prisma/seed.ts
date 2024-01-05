@@ -4,19 +4,6 @@ import { parse } from 'path';
 
 const prisma = new PrismaClient();
 
-function createRandomString() {
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	let randomString = '';
-	for (let i = 0; i < 10; i++) {
-		randomString += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-	return randomString;
-}
-
-function createRandomInt() {
-	return Math.floor(Math.random() * 1000);
-}
-
 function generateFakeJWT(): string{
   const header = faker.string.sample(90);  // Simulated header
   const payload = faker.string.sample(403); // Simulated payload
@@ -29,7 +16,7 @@ async function seedBuyer() {
 	let first_name = faker.person.firstName();
 	let last_name = faker.person.lastName();
 
-	const createdBuyer = await prisma.buyer.create({
+	await prisma.buyer.create({
 		data: {
 			first_name,
 			last_name,
@@ -44,16 +31,11 @@ async function seedBuyer() {
 			},
 		},
 	});
-	console.log(createdBuyer)
 }
-
-
-
 
 
 async function seedStore() {
 	let store_name = faker.company.name()
-	let store_description = faker.lorem.paragraph()
 	let supports_delivery = ((Math.random() * 10) % 2 == 0) ? true : false
 	let store_delivery_radius = Math.floor(Math.random() * 3 + 1) * 10;
 	let address = faker.location.streetAddress()
@@ -61,9 +43,7 @@ async function seedStore() {
 	let state_province = faker.location.state()
 	let zipcode = faker.location.zipCode('#####')
 	let country = faker.location.country()
-	let product_name = faker.commerce.productName()
-	let product_description = faker.commerce.productDescription()
-	let product_price = parseFloat(faker.commerce.price())
+
 
 	let seller_first_name = faker.person.firstName()
 	let seller_last_name = faker.person.lastName()
@@ -72,10 +52,22 @@ async function seedStore() {
 	let seller_date_of_birth = faker.date.between({ from: '1940-01-01T00:00:00.000Z', to: '2023-01-01T00:00:00.000Z' })
 	let seller_auth_token_expiry = faker.date.future()
 	
+
+	const highestIdStore = await prisma.store.findFirst({
+    orderBy: {
+      id: 'desc',
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const nextStoreId = highestIdStore ? highestIdStore.id + 1 : 1;
+
 	const createdStore = await prisma.store.create({
 		data: {
 			store_name,
-			store_description,
+			store_description: faker.lorem.paragraph(),
 			supports_delivery,
 			store_delivery_radius,
 			address,
@@ -96,27 +88,76 @@ async function seedStore() {
 			Product: {
 				create: [
 					{
-						name: product_name,
-						description: product_description,
-						price: product_price,
+						name: faker.commerce.productName(),
+						description: faker.lorem.paragraph(),
+						price: parseFloat(faker.commerce.price()),
 						ProductCategoryAssignment: {
 							create: {
 								ProductCategory: {
 									create: {
-										name: createRandomString(),
+										name: faker.commerce.department()
 									},
 								},
 							},
 						},
-						// ! make this dynamic
-						store_id: 1, 
+						store_id: nextStoreId,
 						product_photos: {
 							create: [
 								{
-									resource_url: "https://via.placeholder.com/" + createRandomInt(),
+									resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
 								},
 								{
-									resource_url: "https://via.placeholder.com/" + createRandomInt(),
+									resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
+								}
+							]
+						},
+					},
+					{
+						name: faker.commerce.productName(),
+						description: faker.lorem.paragraph(),
+						price: parseFloat(faker.commerce.price()),
+						ProductCategoryAssignment: {
+							create: {
+								ProductCategory: {
+									create: {
+										name: faker.commerce.department()
+									},
+								},
+							},
+						},
+						store_id: nextStoreId,
+						product_photos: {
+							create: [
+								{
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
+								},
+								{
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
+								}
+							]
+						},
+					},
+					{
+						name: faker.commerce.productName(),
+						description: faker.lorem.paragraph(),
+						price: parseFloat(faker.commerce.price()),
+						ProductCategoryAssignment: {
+							create: {
+								ProductCategory: {
+									create: {
+										name: faker.commerce.department()
+									},
+								},
+							},
+						},
+						store_id: nextStoreId,
+						product_photos: {
+							create: [
+								{
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
+								},
+								{
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
 								}
 							]
 						},
@@ -153,11 +194,12 @@ async function seedStore() {
 
 
 
-
 async function seedData() {
 	try {
-		seedBuyer()
-		seedStore();
+		for(let i = 0; i < 20; i++){
+			await seedBuyer()
+			await seedStore()
+		}
 		
 		// seedPurchaseOrdersAndAssociations();
 	} catch (error) {
