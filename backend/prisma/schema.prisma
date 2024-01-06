@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("LOCAL_PG_DB_URL")
+  provider = "cockroachdb"
+  url      = env("CLOUD_COCKROACHDB_URL")
 }
 
 model Buyer {
-  id            Int             @id @default(autoincrement())
+  id            Int             @id @default(sequence())
   first_name    String
   last_name     String
   phone_number  String
@@ -21,7 +21,7 @@ model Buyer {
 
 // Seller model
 model Seller {
-  id            Int      @id @default(autoincrement())
+  id            Int      @id @default(sequence())
   first_name    String
   last_name     String
   phone_number  String
@@ -35,7 +35,7 @@ model Seller {
 
 // Auth model
 model Auth {
-  id                 Int       @id @default(autoincrement())
+  id                 Int       @id @default(sequence())
   email              String    @unique
   password           String
   token              String?
@@ -52,7 +52,7 @@ model Auth {
 
 // Store model
 model Store {
-  id                    Int          @id @default(autoincrement())
+  id                    Int          @id @default(sequence())
   store_name            String
   store_description     String?
   supports_delivery     Boolean
@@ -69,14 +69,14 @@ model Store {
 
 // ProductCategory model
 model ProductCategory {
-  id      Int                         @id @default(autoincrement())
+  id      Int                         @id @default(sequence())
   name    String
   Product ProductCategoryAssignment[]
 }
 
 // ProductCategoryAssignment model
 model ProductCategoryAssignment {
-  id                  Int             @id @default(autoincrement())
+  id                  Int             @id @default(sequence())
   product_id          Int
   product_category_id Int
   Product             Product         @relation(fields: [product_id], references: [id])
@@ -85,7 +85,7 @@ model ProductCategoryAssignment {
 
 // Product model
 model Product {
-  id                              Int                               @id @default(autoincrement())
+  id                              Int                               @id @default(sequence())
   store_id                        Int
   name                            String
   description                     String
@@ -99,7 +99,7 @@ model Product {
 
 // PurchaseOrder model
 model PurchaseOrder {
-  id                              Int                               @id @default(autoincrement())
+  id                              Int                               @id @default(sequence())
   buyer_id                        Int
   purchase_date                   DateTime
   PurchaseOrderProductAssociation PurchaseOrderProductAssociation[]
@@ -108,7 +108,7 @@ model PurchaseOrder {
 
 // PurchaseOrderProductAssociation model
 model PurchaseOrderProductAssociation {
-  id                Int           @id @default(autoincrement())
+  id                Int           @id @default(sequence())
   purchase_order_id Int
   product_id        Int
   quantity          Int
@@ -118,7 +118,7 @@ model PurchaseOrderProductAssociation {
 
 // ProductPhoto model
 model ProductPhoto {
-  id           Int     @id @default(autoincrement())
+  id           Int     @id @default(sequence())
   product_id   Int
   resource_url String
   Product      Product @relation(fields: [product_id], references: [id])
@@ -126,7 +126,7 @@ model ProductPhoto {
 
 // StorePhoto model
 model StorePhoto {
-  id           Int    @id @default(autoincrement())
+  id           Int    @id @default(sequence())
   store_id     Int
   resource_url String
   Store        Store  @relation(fields: [store_id], references: [id])
