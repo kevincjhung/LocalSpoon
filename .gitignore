@@ -129,10 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 # Developer Notes
 NOTES.md
-schema.txt
+REQUIREMENTS.md
 
 # Database model
 *.dbml
