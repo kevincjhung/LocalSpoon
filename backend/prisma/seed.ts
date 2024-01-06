@@ -3,13 +3,48 @@ import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
-function generateFakeJWT(): string{
-  const header = faker.string.sample(90);  // Simulated header
-  const payload = faker.string.sample(403); // Simulated payload
-  const signature = faker.string.sample(45); // Simulated signature
 
-  return `${header}.${payload}.${signature}`;
+
+function generateFakeJWT(): string {
+	const header = faker.string.sample(90);  // Simulated header
+	const payload = faker.string.sample(403); // Simulated payload
+	const signature = faker.string.sample(45); // Simulated signature
+
+	return `${header}.${payload}.${signature}`;
 }
+
+
+/**
+ * Generates a date, with the month skewed towards end of the year when ecommerce sales are highest. Data from Kaggle
+ * Use a math library to implement this properly later
+ */
+function generateSkewedDate() {
+	// The frequency of ecommerce sales in each month. Data from Kaggle.
+	const monthFrequency = { "January": 9, "February": 8, "March": 8, "April": 9, "May": 11, "June": 9, "July": 9, "August": 10, "September": 9, "October": 12, "November": 21, "December": 22 };
+
+	// Explicitly define the type for daysInEachMonth
+	const daysInEachMonth: Record<string, number> = { "January": 31, "February": 28, "March": 31, "April": 30, "May": 31, "June": 30, "July": 31, "August": 31, "September": 30, "October": 31, "November": 30, "December": 31 };
+
+	let eCommDistributionMonths: string[] = [];
+
+	for (const [key, value] of Object.entries(monthFrequency)) {
+		for (let i = 0; i < value; i++) {
+			eCommDistributionMonths.push(key);
+		}
+	}
+
+	// years hardcoded for now
+	const randomYear = [2022, 2023, 2024][Math.floor(Math.random() * 3)];
+
+	// select a random month from eCommDistributionMonths
+	let randomMonth: string = eCommDistributionMonths[Math.floor(Math.random() * eCommDistributionMonths.length)];
+
+	// generate a random day in randomMonth
+	let randomDay = Math.floor(Math.random() * daysInEachMonth[randomMonth]) + 1;
+
+	return new Date(`${randomYear}-${randomMonth}-${randomDay}`);
+}
+
 
 async function seedBuyer() {
 	let first_name = faker.person.firstName();
@@ -32,6 +67,7 @@ async function seedBuyer() {
 	});
 }
 
+
 async function seedStore() {
 	let store_name = faker.company.name()
 	let supports_delivery = ((Math.random() * 10) % 2 == 0) ? true : false
@@ -49,18 +85,18 @@ async function seedStore() {
 	let seller_gender = Math.random() > 0.5 ? "Male" : "Female"
 	let seller_date_of_birth = faker.date.between({ from: '1940-01-01T00:00:00.000Z', to: '2023-01-01T00:00:00.000Z' })
 	let seller_auth_token_expiry = faker.date.future()
-	
+
 
 	const highestIdStore = await prisma.store.findFirst({
-    orderBy: {
-      id: 'desc',
-    },
-    select: {
-      id: true,
-    },
-  });
+		orderBy: {
+			id: 'desc',
+		},
+		select: {
+			id: true,
+		},
+	});
 
-  const nextStoreId = highestIdStore ? highestIdStore.id + 1 : 1;
+	const nextStoreId = highestIdStore ? highestIdStore.id + 1 : 1;
 
 	const createdStore = await prisma.store.create({
 		data: {
@@ -76,10 +112,10 @@ async function seedStore() {
 			store_photos: {
 				create: [
 					{
-						resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
+						resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
 					},
 					{
-						resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
+						resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
 					}
 				]
 			},
@@ -102,10 +138,10 @@ async function seedStore() {
 						product_photos: {
 							create: [
 								{
-									resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
 								},
 								{
-									resource_url: faker.image.urlLoremFlickr({width: 640,height: 480})
+									resource_url: faker.image.urlLoremFlickr({ width: 640, height: 480 })
 								}
 							]
 						},
@@ -190,124 +226,57 @@ async function seedStore() {
 }
 
 
-
-/**
- * Generates a date, with the month skewed towards end of the year when ecommerce sales are highest. Data from Kaggle
- * Use a math library to implement this properly later
- */
-function generateSkewedDate() {
-	// The frequency of ecommerce sales in each month. Data from Kaggle.
-	const monthFrequency = {"January": 9,"February":8 ,"March": 8,"April":9 ,"May": 11,"June": 9,"July": 9,"August": 10,"September": 9,"October": 12,"November":21,"December": 22};
-	
-	// Explicitly define the type for daysInEachMonth
-	const daysInEachMonth: Record<string, number> = {"January": 31,"February":28 ,"March": 31,"April":30 ,"May": 31,"June": 30,"July": 31,"August": 31,"September": 30,"October": 31,"November":30,"December": 31};
-
-	let eCommDistributionMonths: string[] = [];
-
-	for (const [key, value] of Object.entries(monthFrequency)) {
-			for (let i = 0; i < value; i++) {
-					eCommDistributionMonths.push(key);
-			}
-	}
-	
-	  // years hardcoded for now
-		const randomYear = [2022, 2023, 2024][Math.floor(Math.random() * 3)];
-
-		// select a random month from eCommDistributionMonths
-		let randomMonth: string = eCommDistributionMonths[Math.floor(Math.random() * eCommDistributionMonths.length)];
-	
-		// generate a random day in randomMonth
-		let randomDay = Math.floor(Math.random() * daysInEachMonth[randomMonth]) + 1;
-	
-		return new Date(`${randomYear}-${randomMonth}-${randomDay}`);
-}
-
-
-
-
-const purchaseOrderProductAssociationData: Prisma.PurchaseOrderProductAssociationCreateInput[] = [
-	{
-		quantity: 12,
-		Product: {
-			connect: {
-				id: 1,
-			},
-		},
-		PurchaseOrder: {
-			create: {
-				buyer_id: 1,
-				purchase_date: new Date('2021-01-01'),
-			}
-		},
-	}
-]
-
-
-
-
-
 async function seedPurchaseOrdersAndAssociations() {
 	try {
 		// Retrieve the IDs of all buyers and products
 		const buyers = await prisma.buyer.findMany();
 		const products = await prisma.product.findMany();
 
-		// console.log('buyers', buyers);
-		// console.log('products', products);
-
-		// if (buyers.length === 0 || products.length === 0) {
-		// 	console.warn('Unable to seed purchase orders. Buyers or products not found.');
-		// 	return;
-		// }
-		
-		for(let i = 0; i < 1000; i++){
-
-			console.log(generateSkewedDate())
+		if (buyers.length === 0 || products.length === 0) {
+			console.warn('Unable to seed purchase orders. Buyers or products not found.');
+			return;
 		}
 
-		// for (const purchaseOrderProductAssociation of purchaseOrderProductAssociationData) {
+		// Loop through all buyers
+		for (let buyer of buyers) {
+			// Select a random number of products to buy
+			const numberOfProductsToBuy = Math.floor(Math.random() * 15);
 
-		// 	const createdPurchaseOrderProductAssociation = await prisma.purchaseOrderProductAssociation.create({
-		// 		data: purchaseOrderProductAssociation,
-		// 	});
-		// }
-
+			// Create a purchase order for the buyer
+			await prisma.purchaseOrder.create({
+				data: {
+					buyer_id: buyer.id,
+					purchase_date: generateSkewedDate(),
+					PurchaseOrderProductAssociation: {
+						create: products
+							.slice(0, numberOfProductsToBuy) // Take a slice of the products array based on the random number
+							.map((product) => ({
+								quantity: Math.floor(Math.random() * 10) + 1,
+								Product: {
+									connect: {
+										id: product.id,
+									},
+								},
+							})),
+					},
+				},
+			});
+		}
 	} catch (error) {
 		console.error('Error during seeding purchase orders and associations:', error);
 	}
 }
 
 
-/**
-	- every product to be bought at least once
- 	- most buyers have bought at least one product
- 	- The purchase order data are spread over a period of time. 
- 	- within the same year, sales climb from september to december, and then drop off in january.
- 
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 async function seedData() {
 	try {
-		// for(let i = 0; i < 50; i++){
-		// 	await seedBuyer()
-		// 	await seedStore()
-		// }
-		
-		seedPurchaseOrdersAndAssociations();
+		await seedBuyer()
+		await seedStore()
+		await seedPurchaseOrdersAndAssociations();
+		await seedPurchaseOrdersAndAssociations();
+		await seedPurchaseOrdersAndAssociations();
+		await seedPurchaseOrdersAndAssociations();
+		await seedPurchaseOrdersAndAssociations();
 	} catch (error) {
 		console.error('Error during seeding:', error);
 	} finally {
@@ -325,33 +294,4 @@ try {
 } finally {
 	console.log('...Seed Script Terminated \n Disconnected from Prisma Client');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
