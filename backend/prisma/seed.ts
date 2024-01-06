@@ -1,6 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import { faker } from '@faker-js/faker';
-import { parse } from 'path';
 
 const prisma = new PrismaClient();
 
@@ -10,7 +9,7 @@ function generateFakeJWT(): string{
   const signature = faker.string.sample(45); // Simulated signature
 
   return `${header}.${payload}.${signature}`;
-};
+}
 
 async function seedBuyer() {
 	let first_name = faker.person.firstName();
@@ -32,7 +31,6 @@ async function seedBuyer() {
 		},
 	});
 }
-
 
 async function seedStore() {
 	let store_name = faker.company.name()
@@ -193,15 +191,123 @@ async function seedStore() {
 
 
 
+/**
+ * Generates a date, with the month skewed towards end of the year when ecommerce sales are highest. Data from Kaggle
+ * Use a math library to implement this properly later
+ */
+function generateSkewedDate() {
+	// The frequency of ecommerce sales in each month. Data from Kaggle.
+	const monthFrequency = {"January": 9,"February":8 ,"March": 8,"April":9 ,"May": 11,"June": 9,"July": 9,"August": 10,"September": 9,"October": 12,"November":21,"December": 22};
+	
+	// Explicitly define the type for daysInEachMonth
+	const daysInEachMonth: Record<string, number> = {"January": 31,"February":28 ,"March": 31,"April":30 ,"May": 31,"June": 30,"July": 31,"August": 31,"September": 30,"October": 31,"November":30,"December": 31};
+
+	let eCommDistributionMonths: string[] = [];
+
+	for (const [key, value] of Object.entries(monthFrequency)) {
+			for (let i = 0; i < value; i++) {
+					eCommDistributionMonths.push(key);
+			}
+	}
+	
+	  // years hardcoded for now
+		const randomYear = [2022, 2023, 2024][Math.floor(Math.random() * 3)];
+
+		// select a random month from eCommDistributionMonths
+		let randomMonth: string = eCommDistributionMonths[Math.floor(Math.random() * eCommDistributionMonths.length)];
+	
+		// generate a random day in randomMonth
+		let randomDay = Math.floor(Math.random() * daysInEachMonth[randomMonth]) + 1;
+	
+		return new Date(`${randomYear}-${randomMonth}-${randomDay}`);
+}
+
+
+
+
+const purchaseOrderProductAssociationData: Prisma.PurchaseOrderProductAssociationCreateInput[] = [
+	{
+		quantity: 12,
+		Product: {
+			connect: {
+				id: 1,
+			},
+		},
+		PurchaseOrder: {
+			create: {
+				buyer_id: 1,
+				purchase_date: new Date('2021-01-01'),
+			}
+		},
+	}
+]
+
+
+
+
+
+async function seedPurchaseOrdersAndAssociations() {
+	try {
+		// Retrieve the IDs of all buyers and products
+		const buyers = await prisma.buyer.findMany();
+		const products = await prisma.product.findMany();
+
+		// console.log('buyers', buyers);
+		// console.log('products', products);
+
+		// if (buyers.length === 0 || products.length === 0) {
+		// 	console.warn('Unable to seed purchase orders. Buyers or products not found.');
+		// 	return;
+		// }
+		
+		for(let i = 0; i < 1000; i++){
+
+			console.log(generateSkewedDate())
+		}
+
+		// for (const purchaseOrderProductAssociation of purchaseOrderProductAssociationData) {
+
+		// 	const createdPurchaseOrderProductAssociation = await prisma.purchaseOrderProductAssociation.create({
+		// 		data: purchaseOrderProductAssociation,
+		// 	});
+		// }
+
+	} catch (error) {
+		console.error('Error during seeding purchase orders and associations:', error);
+	}
+}
+
+
+/**
+	- every product to be bought at least once
+ 	- most buyers have bought at least one product
+ 	- The purchase order data are spread over a period of time. 
+ 	- within the same year, sales climb from september to december, and then drop off in january.
+ 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function seedData() {
 	try {
-		for(let i = 0; i < 20; i++){
-			await seedBuyer()
-			await seedStore()
-		}
+		// for(let i = 0; i < 50; i++){
+		// 	await seedBuyer()
+		// 	await seedStore()
+		// }
 		
-		// seedPurchaseOrdersAndAssociations();
+		seedPurchaseOrdersAndAssociations();
 	} catch (error) {
 		console.error('Error during seeding:', error);
 	} finally {
@@ -247,46 +353,5 @@ try {
 
 
 
-const purchaseOrderProductAssociationData: Prisma.PurchaseOrderProductAssociationCreateInput[] = [
-	{
-		quantity: 12,
-		Product: {
-			connect: {
-				id: 1,
-			},
-		},
-		PurchaseOrder: {
-			create: {
-				buyer_id: 1,
-				purchase_date: new Date('2021-01-01'),
-			}
-		},
-	}
-]
 
-async function seedPurchaseOrdersAndAssociations() {
-	try {
-		// Retrieve the IDs of all buyers and products
-		const buyers = await prisma.buyer.findMany();
-		const products = await prisma.product.findMany();
-
-		if (buyers.length === 0 || products.length === 0) {
-			console.warn('Unable to seed purchase orders. Buyers or products not found.');
-			return;
-		}
-
-		// create a purchase order, select one of the buyers at random, and many of the products at random
-
-		for (const purchaseOrderProductAssociation of purchaseOrderProductAssociationData) {
-
-			const createdPurchaseOrderProductAssociation = await prisma.purchaseOrderProductAssociation.create({
-				data: purchaseOrderProductAssociation,
-			});
-
-			console.log(`Created purchase order product association with id: ${createdPurchaseOrderProductAssociation.id}`);
-		}
-	} catch (error) {
-		console.error('Error during seeding purchase orders and associations:', error);
-	}
-}
 
