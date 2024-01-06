@@ -5,8 +5,10 @@ import { prisma } from '../database-client';
 
 // /* GET users listing. */
 router.get('/', async (req, res) => {
-  const buyers = await prisma.buyer.findMany();  
-  res.send(buyers)
+  // get all stores
+  const stores = await prisma.store.findMany();
+
+  res.send(stores)
 });
 
 

@@ -5,7 +5,13 @@ import logger from 'morgan';
 
 // Import routes
 const indexRouter = require('./routes/index');
-const buyersRouter = require('./routes/buyers');
+const buyersRouter = require('./routes/buyer');
+const sellerRouter = require('./routes/seller');
+const storeRouter = require('./routes/store');
+const analyticsRouter = require('./routes/analytics');
+const productRouter = require('./routes/product');
+const purchaseOrderRouter = require('./routes/purchase-order');
+
 
 const app = express()
 
@@ -16,7 +22,12 @@ app.use(cookieParser());
 
 // Router middleware
 app.use('/', indexRouter);
-app.use('/buyers', buyersRouter);
+app.use('/api/buyers', buyersRouter);
+app.use('/api/sellers', sellerRouter);
+app.use('/api/stores', storeRouter);
+app.use('/api/analytics', analyticsRouter);
+app.use('/api/products', productRouter);
+app.use('/api/purchase-orders', purchaseOrderRouter);
 
 
 app.use(function(req, res, next) {
