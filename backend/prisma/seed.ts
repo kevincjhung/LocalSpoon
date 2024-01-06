@@ -1,8 +1,7 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
-
 
 
 function generateFakeJWT(): string {
@@ -272,10 +271,6 @@ async function seedData() {
 	try {
 		await seedBuyer()
 		await seedStore()
-		await seedPurchaseOrdersAndAssociations();
-		await seedPurchaseOrdersAndAssociations();
-		await seedPurchaseOrdersAndAssociations();
-		await seedPurchaseOrdersAndAssociations();
 		await seedPurchaseOrdersAndAssociations();
 	} catch (error) {
 		console.error('Error during seeding:', error);
