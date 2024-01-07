@@ -3,13 +3,12 @@ const router = express.Router();
 
 import { prisma } from '../database-client';
 
-// /* GET users listing. */
 router.get('/', async (req, res) => {
-  // get all sellers
   const sellers = await prisma.seller.findMany();
-
   res.send(sellers)
 });
 
+// GET /sellers 🚧
+// get seller by ID
 
 module.exports = router;
