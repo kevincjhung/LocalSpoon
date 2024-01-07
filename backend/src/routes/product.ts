@@ -4,6 +4,8 @@ const router = express.Router();
 import { prisma } from '../database-client';
 
 /**
+ * ! for testing, remove before production
+ * 
  * GET /api/product
  * 
  * Retrieves all products.

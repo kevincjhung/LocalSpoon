@@ -4,7 +4,10 @@ const router = express.Router();
 import { prisma } from '../database-client';
 
 /**
+ * ! for testing, remove before production
+ * 
  * GET /api/buyers
+ * 
  * @throws {404} No buyers found.
  * @throws {500} Internal Server Error.
  */

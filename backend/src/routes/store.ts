@@ -3,7 +3,9 @@ const router = express.Router();
 
 import { prisma } from '../database-client';
 
-
+/**
+ * ! for testing, remove before production
+ */
 router.get('/', async (req, res) => {
   const stores = await prisma.store.findMany();
 
