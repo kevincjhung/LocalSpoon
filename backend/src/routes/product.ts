@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 
 import { prisma } from '../database-client';
+import { isUrlParamsNumeric } from '../../utils/validation'
 
 /**
  * ! for testing, remove before production
@@ -41,7 +42,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   const productId: string = req.params.id;
 
-  if (!productId || isNaN(parseInt(productId, 10))) {
+  if (isUrlParamsNumeric(productId)) {
     res.status(400).json({ error: 'Invalid product ID' });
   }
 
@@ -79,7 +80,7 @@ router.get('/:productId/photos', async (req: Request, res: Response) => {
   const productId: string = req.params.productId;
 
   // Use a regular expression to check if the entire string is a valid number
-  if (!productId || !/^\d+$/.test(productId)) {
+  if (isUrlParamsNumeric(productId)) {
     res.status(400).json({ error: 'Invalid product ID' });
     return;
   }

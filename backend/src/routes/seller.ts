@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { prisma } from '../database-client';
+import { isUrlParamsNumeric } from '../../utils/validation';
 
 /**
  * ! for testing, remove before production
@@ -11,14 +12,14 @@ router.get('/', async (req, res) => {
   res.send(sellers)
 });
 
-// GET /sellers 🚧
+// GET /sellers 
 /**
  * ! This needs to be changed after auth has been implemented
  */
 router.get('/:sellerId', async (req, res) => {
-  const sellerId = parseInt(req.params.sellerId, 10);
+  const sellerId = req.params.sellerId;
 
-  if (!sellerId || isNaN(sellerId)) {
+  if (isUrlParamsNumeric(sellerId)) {
     res.status(400).json({ error: 'Invalid seller ID' });
     return
   }
@@ -26,7 +27,7 @@ router.get('/:sellerId', async (req, res) => {
   try {
     const seller = await prisma.seller.findUnique({
       where: {
-        id: sellerId,
+        id: parseInt(sellerId, 10)
       }
     });
 

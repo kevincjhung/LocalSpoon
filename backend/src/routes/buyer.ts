@@ -39,6 +39,8 @@ router.get('/', async (req: Request, res: Response) => {
  */
 router.get('/:id', async (req: Request, res: Response) => {
   const buyerId: string = req.params.id;
+  // get buyerId from query params
+  
 
   if (!buyerId || isNaN(parseInt(buyerId, 10))) {
     res.status(400).json({ error: 'Invalid buyer ID' });

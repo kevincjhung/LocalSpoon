@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 
 import { prisma } from '../database-client';
+import { isUrlParamsNumeric } from '../../utils/validation';
 
 /** 
  * ! For testing, remove before production
@@ -64,7 +65,7 @@ router.get('/buyer/:buyerId', async (req: Request, res: Response) => {
 router.get('/stores/:storeId', async (req: Request, res: Response) => {
   const storeId: string = req.params.storeId;
 
-  if (!storeId || isNaN(parseInt(storeId, 10))) {
+  if (isUrlParamsNumeric(storeId)) {
     res.status(400).json({ error: 'Invalid purchase order ID' });
     return
   }

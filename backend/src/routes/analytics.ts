@@ -11,13 +11,13 @@ router.get('/', async (req, res) => {
 
 
 
-// GET /analytics/stores/sales-by-month 🚧
+// GET /analytics/stores/sales 🚧
 //   Sales by Month in the Past Year for a Given Store:
 
-// GET /analytics/stores/sales-past-month 🚧
+// GET /analytics/stores/sales 🚧
 //   Sales of Past Month for a Given Store:
 
-// GET /analytics/stores/sales-past-week 🚧
+// GET /analytics/stores/sales 🚧
 //   Sales of Past 7 Days for a Given Store:
 
 // GET /analytics/stores/top-selling-products 🚧
