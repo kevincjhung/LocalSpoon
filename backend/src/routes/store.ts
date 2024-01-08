@@ -10,6 +10,7 @@ const router = express.Router();
 
 
 /**
+ * 
  * GET /stores
  * 
  * Retrieves all stores 
