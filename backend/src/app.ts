@@ -3,7 +3,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-// Import routes
+// Import Routers
 const indexRouter = require('./routes/index');
 const buyersRouter = require('./routes/buyer');
 const sellerRouter = require('./routes/seller');
@@ -15,6 +15,7 @@ const purchaseOrderRouter = require('./routes/purchase-order');
 
 const app = express()
 
+// Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -269,9 +269,12 @@ async function seedPurchaseOrdersAndAssociations() {
 
 async function seedData() {
 	try {
-		await seedBuyer()
-		await seedStore()
-		await seedPurchaseOrdersAndAssociations();
+		// await seedBuyer()
+		// await seedStore()
+		
+		for(let i = 0; i < 30; i++) {
+			await seedPurchaseOrdersAndAssociations()
+		}
 	} catch (error) {
 		console.error('Error during seeding:', error);
 	} finally {

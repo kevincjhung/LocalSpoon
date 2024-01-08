@@ -4,7 +4,10 @@ const router = express.Router();
 import { prisma } from '../database-client';
 
 /**
+ * ! for testing, remove before production
+ * 
  * GET /api/buyers
+ * 
  * @throws {404} No buyers found.
  * @throws {500} Internal Server Error.
  */
@@ -32,10 +35,12 @@ router.get('/', async (req: Request, res: Response) => {
  * @throws {404} Buyer not found.
  * @throws {500} Internal Server Error.
  *
- * !TODO: This currently accepts the ID from the params. It will need to be changed after auth implementation.
+ * TODO: This currently accepts the ID from the params. It will need to be changed after auth implementation.
  */
 router.get('/:id', async (req: Request, res: Response) => {
   const buyerId: string = req.params.id;
+  // get buyerId from query params
+  
 
   if (!buyerId || isNaN(parseInt(buyerId, 10))) {
     res.status(400).json({ error: 'Invalid buyer ID' });
