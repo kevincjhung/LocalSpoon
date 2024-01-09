@@ -1,4 +1,11 @@
--- Total number of purchase orders per month for a given store 
+-- /api/analytics/stores/2/top-selling-products?year=2022
+-- Top Selling Products
+
+-- /api/analytics/stores/{storeId}/purchase-orders-count-by-month.
+-- Endpoint for Purchase Orders Count by Month:
+
+
+-- ✅ Total number of purchase orders per month for a given store 
 -- results grouped by months within the last 12 months
 SELECT
     DATE_TRUNC('month', po.purchase_date) AS month,
@@ -14,7 +21,7 @@ ORDER BY month desc
 LIMIT 12
 
 
--- Revenue by month for a given store
+-- ✅ Revenue by month for a given store
 -- for the last XX months
 SELECT
     DATE_TRUNC('month', po.purchase_date) AS month,
@@ -44,7 +51,7 @@ GROUP BY month
 ORDER BY month DESC;
 
 
--- GET /analytics/stores/sales 🚧
+-- ✅ GET /analytics/stores/sales 🚧
 --   Sales of Past 7/14/30 Days for a Given Store:
 SELECT
     DATE_TRUNC('day', po.purchase_date) AS day,
@@ -119,3 +126,6 @@ WHERE pr.store_id = 2
     AND EXTRACT(YEAR FROM po.purchase_date) = 2022 -- Replace with your desired year
 GROUP BY poa.product_id
 ORDER BY total_quantity DESC;
+
+
+
