@@ -1,5 +1,5 @@
--- Total number of sales per month for a specific store (with store_id equal to 2), g
--- Grouping the results by truncated purchase months within the last 12 months
+-- Total number of purchase orders per month for a given store 
+-- results grouped by months within the last 12 months
 SELECT
     DATE_TRUNC('month', po.purchase_date) AS month,
     COUNT(*) AS "Number Of Purchase Orders"
@@ -11,10 +11,11 @@ LEFT JOIN "Product" AS pr
 WHERE pr.store_id = 1
 GROUP BY month
 ORDER BY month desc
-LIMIT 6
+LIMIT 12
 
 
 -- Revenue by month for a given store
+-- for the last XX months
 SELECT
     DATE_TRUNC('month', po.purchase_date) AS month,
     SUM(pr.price * poa.quantity) AS total_sales_amount
@@ -29,7 +30,7 @@ ORDER BY month desc
 
 
 --  GET /analytics/stores/sales 🚧
---  Sales of given Month for a Given Store:
+--  Sales of a single specific Month for a Given Store:
 SELECT
     DATE_TRUNC('month', po.purchase_date) AS month,
     SUM(pr.price * poa.quantity) AS total_sales_amount
@@ -38,13 +39,13 @@ LEFT JOIN "PurchaseOrder" AS po
     ON poa.purchase_order_id = po.id
 LEFT JOIN "Product" AS pr
     ON poa.product_id = pr.id AND pr.store_id = 1 -- Move condition to ON clause
-WHERE DATE_TRUNC('month', po.purchase_date) = '2023-12-01' -- Replace with your desired month
+WHERE DATE_TRUNC('month', po.purchase_date) = '2023-11-01' -- Replace with your desired month
 GROUP BY month
 ORDER BY month DESC;
 
 
 -- GET /analytics/stores/sales 🚧
---   Sales of Past 7 Days for a Given Store:
+--   Sales of Past 7/14/30 Days for a Given Store:
 SELECT
     DATE_TRUNC('day', po.purchase_date) AS day,
     SUM(pr.price * poa.quantity) AS total_sales_amount
@@ -69,11 +70,27 @@ LEFT JOIN "PurchaseOrder" AS po
     ON poa.purchase_order_id = po.id
 LEFT JOIN "Product" AS pr
     ON poa.product_id = pr.id
-WHERE pr.store_id = 5
+WHERE pr.store_id = 2
 GROUP BY poa.product_id
 ORDER BY total_quantity DESC;
 
--- most revenue
+-- GET /analytics/stores/top-selling-products-for-year 🚧
+-- Top Selling Products for a Given Store with Quantity for a Specific Year:
+SELECT
+    poa.product_id,
+    SUM(poa.quantity) AS total_quantity
+FROM "PurchaseOrderProductAssociation" AS poa
+LEFT JOIN "PurchaseOrder" AS po
+    ON poa.purchase_order_id = po.id
+LEFT JOIN "Product" AS pr
+    ON poa.product_id = pr.id
+WHERE pr.store_id = 1
+    AND EXTRACT(YEAR FROM po.purchase_date) = 2023 -- Replace with your desired year
+GROUP BY poa.product_id
+ORDER BY total_quantity DESC;
+
+
+-- Products that generated the most revenue for a given store
 SELECT
     poa.product_id,
     SUM(poa.quantity) AS total_quantity,
@@ -84,5 +101,21 @@ LEFT JOIN "PurchaseOrder" AS po
 LEFT JOIN "Product" AS pr
     ON poa.product_id = pr.id
 WHERE pr.store_id = 2
+GROUP BY poa.product_id
+ORDER BY total_quantity DESC;
+
+
+-- GET /analytics/stores/top-selling-products-for-year 🚧
+-- Top Selling Products with Highest Total Price for a Given Store and Specific Year:
+SELECT
+    poa.product_id,
+    SUM(poa.quantity) AS total_quantity
+FROM "PurchaseOrderProductAssociation" AS poa
+LEFT JOIN "PurchaseOrder" AS po
+    ON poa.purchase_order_id = po.id
+LEFT JOIN "Product" AS pr
+    ON poa.product_id = pr.id
+WHERE pr.store_id = 2
+    AND EXTRACT(YEAR FROM po.purchase_date) = 2022 -- Replace with your desired year
 GROUP BY poa.product_id
 ORDER BY total_quantity DESC;
