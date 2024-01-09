@@ -33,7 +33,7 @@ function generateSkewedDate() {
 	}
 
 	// years hardcoded for now
-	const randomYear = [2022, 2023, 2024][Math.floor(Math.random() * 3)];
+	const randomYear = [2021, 2022, 2023][Math.floor(Math.random() * 3)];
 
 	// select a random month from eCommDistributionMonths
 	let randomMonth: string = eCommDistributionMonths[Math.floor(Math.random() * eCommDistributionMonths.length)];
@@ -41,6 +41,17 @@ function generateSkewedDate() {
 	// generate a random day in randomMonth
 	let randomDay = Math.floor(Math.random() * daysInEachMonth[randomMonth]) + 1;
 
+	let generatedDate = new Date(`${randomYear}-${randomMonth}-${randomDay}`);
+
+	// Ensure that the generated date is in the past
+	const currentDate = new Date();
+
+	while (generatedDate > currentDate) {
+		// If generated date is in the future, subtract a random number of days to make it in the past
+		const daysToSubtract = Math.floor(Math.random() * 365); // Adjust as needed
+		generatedDate.setDate(generatedDate.getDate() - daysToSubtract);
+
+	}
 	return new Date(`${randomYear}-${randomMonth}-${randomDay}`);
 }
 
@@ -271,9 +282,11 @@ async function seedData() {
 	try {
 		// await seedBuyer()
 		// await seedStore()
-		
-		for(let i = 0; i < 30; i++) {
+
+		for (let i = 0; i < 300; i++) {
 			await seedPurchaseOrdersAndAssociations()
+
+			// console.log(generateSkewedDate())
 		}
 	} catch (error) {
 		console.error('Error during seeding:', error);

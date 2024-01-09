@@ -7,7 +7,6 @@ CREATE TABLE "Buyer" (
     "gender" TEXT NOT NULL,
     "date_of_birth" TIMESTAMP(3) NOT NULL,
     "auth_id" INTEGER NOT NULL,
-    "productId" INTEGER,
 
     CONSTRAINT "Buyer_pkey" PRIMARY KEY ("id")
 );
@@ -22,7 +21,6 @@ CREATE TABLE "Seller" (
     "date_of_birth" TIMESTAMP(3) NOT NULL,
     "store_id" INTEGER NOT NULL,
     "auth_id" INTEGER NOT NULL,
-    "productId" INTEGER,
 
     CONSTRAINT "Seller_pkey" PRIMARY KEY ("id")
 );
@@ -133,16 +131,10 @@ CREATE UNIQUE INDEX "Auth_email_key" ON "Auth"("email");
 ALTER TABLE "Buyer" ADD CONSTRAINT "Buyer_auth_id_fkey" FOREIGN KEY ("auth_id") REFERENCES "Auth"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Buyer" ADD CONSTRAINT "Buyer_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Seller" ADD CONSTRAINT "Seller_auth_id_fkey" FOREIGN KEY ("auth_id") REFERENCES "Auth"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Seller" ADD CONSTRAINT "Seller_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Seller" ADD CONSTRAINT "Seller_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductCategoryAssignment" ADD CONSTRAINT "ProductCategoryAssignment_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
