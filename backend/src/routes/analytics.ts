@@ -6,7 +6,7 @@ import { isUrlParamsNumeric } from '../../utils/validation';
 
 
 
-/** 🧪
+/** 
  *  GET /api/analytics/stores/{storeId}/purchase-orders-count-by-month
  *  Number of purchase orders for a given store in the past {numberOfMonths} months.
  * 
@@ -46,7 +46,7 @@ router.get('/stores/:storeId/purchase-orders', async (req: Request, res: Respons
 
 
 
-/** 🧪
+/** 
  *  GET /api/analytics/stores/{storeId}/sales-by-month
  *  Total sales amount for a given store in the past {numberOfMonths} months.
  *  
@@ -86,7 +86,7 @@ router.get('/stores/:storeId/sales-by-month', async (req: Request, res: Response
 
 
 
-/** 🧪
+/** 
  *  GET /analytics/stores/:storeId/sales 
  *  Sales of Past 7/14/30/180 Days for a Given Store:
  * 
@@ -129,7 +129,7 @@ router.get('/stores/:storeId/sales', async (req: Request, res: Response) => {
 
 
 
-/** 🧪
+/** 
  *  GET /analytics/stores/:storeId/top-selling-products
  *  Top Selling Products for a Given Store with Quantity:
  * 
@@ -168,7 +168,7 @@ router.get('/stores/:storeId/top-selling-products', async (req: Request, res: Re
 
 
 
-/** 🧪
+/** 
  *  GET /analytics/stores/:storeId/top-revenue-products
  *  Products that generated the most revenue for a given store
  *  
