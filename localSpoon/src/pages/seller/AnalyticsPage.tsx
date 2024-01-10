@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
       </div>
       <div className="analytics-page-grid-container">
         <div className="analytics-page-top-row">
-          <TopSellingProductsCard />
+          <TopSellingProductsCard storeId={1}/>
         </div>
         <div className="analytics-page-bottom-row">
           <div className="analytics-bottom-container">
