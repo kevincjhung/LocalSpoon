@@ -25,6 +25,12 @@
   left: 0;
 }
 
+.analytics-page-ContentCopy{
+  width: 77%;
+  margin: auto;
+  position: relative;
+}
+
 .analytics-page-secondary-navbar {
   padding-top: 1.5rem;
   width: 77%;
@@ -47,8 +53,7 @@
 }
 
 .analytics-page-left-column {
-  background-color: #3498db; 
-  
+  border: solid blue 1px;
 }
 
 
@@ -60,11 +65,11 @@
 
 
 .analytics-page-top-card{
-  background-color: #e74c3c; /* Adjust the background color as needed */
-  
+  border: solid green 1px;
 }
+
 .analytics-page-bottom-card {
-  background-color: #2ecc71; /* Adjust the background color as needed */
+  border: solid red 1px;
 }
 
 @media (max-width: 768px) {

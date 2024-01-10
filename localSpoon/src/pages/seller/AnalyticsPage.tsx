@@ -12,13 +12,10 @@ export default function AnalyticsPage() {
 	};
 
   return (
-    <>
-      <div className="analytics-page-secondary-navbar">
-        <div className=''>
-          <Box sx={{
-            margin: "0",
-            padding: "0"
-          }}>
+    <div className="analytics-page-ContentCopy">
+      <div className="analytics-page-secondary-navbar ">
+        <div className='mb-1'>
+          <Box>
             <Tabs
               value={value}
               onChange={handleChange}
@@ -35,15 +32,15 @@ export default function AnalyticsPage() {
               />
               <Tab
                 value="Purchase Order Analytics"
-                label={<Link to="/seller/analytics/sales-analytics">Purchase Order Analytics</Link>}
+                label={<Link to="/seller/analytics/purchase-order-analytics">Purchase Order Analytics</Link>}
               />
               <Tab
                 value="Top Sellers Analytics"
-                label={<Link to="/seller/analytics/purchase-order-analytics">Top Sellers</Link>}
+                label={<Link to="/seller/analytics/top-sellers">Top Sellers</Link>}
               />
               <Tab
                 value="Revenue Analytics"
-                label={<Link to="/seller/analytics/top-sellers">Revenue Analytics</Link>}
+                label={<Link to="/seller/analytics/revenue-analytics">Revenue Analytics</Link>}
               />
             </Tabs>
           </Box>
@@ -51,14 +48,13 @@ export default function AnalyticsPage() {
       </div>
       <div className="analytics-page-grid-container">
         <div className="analytics-page-left-column">
-          <p>Left Column</p>
-
+          
         </div>
         <div className="analytics-page-right-column">
           <div className="analytics-page-top-card">Top Card</div>
           <div className="analytics-page-bottom-card">Bottom Card</div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
