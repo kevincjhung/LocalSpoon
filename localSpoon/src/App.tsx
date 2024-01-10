@@ -28,7 +28,13 @@ function App() {
           >
             <Route path="create-store" element={<CreateStore />} />
             <Route index element={<SellerLanding />} />
-            <Route path="analytics" element={<Analytics />} />
+            <Route path="analytics"  element={<Analytics />}>
+              <Route path="dashboard" index element={<div>Dashboard</div>} />
+              <Route path="sales-analytics" element={<div>Sales Analytics</div>} />
+              <Route path="purchase-order-analytics" element={<div>Purchase Order Analytics</div>} />
+              <Route path="top-sellers" element={<div>Top Sellers</div>} />
+              <Route path="revenue-analytics" element={<div>Revenue Analytics</div>} />
+            </Route>
             <Route path="add-product" element={<ProductPosting />} />
             <Route path="orders" element={<SellerOrders />} />
             <Route path="shop/:shopID" element={<Shop />} />
@@ -37,7 +43,11 @@ function App() {
       </Router>
     </ThemeProvider>
   );
-
 }
 
 export default App;
+"/seller/analytics/dashboard"
+"/seller/analytics/sales-analytics"
+"/seller/analytics/purchase-order-analytics"
+"/seller/analytics/top-sellers"
+"/seller/analytics/revenue-analytics"
