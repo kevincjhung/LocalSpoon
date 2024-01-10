@@ -18,17 +18,54 @@
 }
 
 /* Nav Bar TODO: rename the classes */
-.bottom-left {
+.navbar-bottom-left {
   align-self: end;
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.bottom-right, .middle-right, .top-right {
+.navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
   justify-self: end;
 }
 
-.middle-left {
+.navbar-middle-left {
   align-self: end;
+}
+
+.analytics-page-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* 1/3 and 2/3 of the width */
+  /* gap: 16px; Adjust the gap between the cards */
+  height: 75vh; /* Full height of the viewport */
+}
+
+.analytics-page-left-column {
+  background-color: #3498db; /* Adjust the background color as needed */
+  /* margin: 20px; */
+}
+
+
+.analytics-page-right-column {
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Two rows, each taking up 1/2 of the height */
+  /* gap: 16px; Adjust the gap between the top and bottom cards */
+  /* margin: 20px; */
+  height: 100%; /* Full height of the parent container */
+}
+
+
+.analytics-page-top-card{
+  background-color: #e74c3c; /* Adjust the background color as needed */
+
+}
+.analytics-page-bottom-card {
+  background-color: #2ecc71; /* Adjust the background color as needed */
+}
+
+@media (max-width: 768px) {
+  /* Responsive layout adjustments for smaller screens */
+  .grid-container {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+  }
 }
