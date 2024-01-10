@@ -25,6 +25,11 @@
   left: 0;
 }
 
+.analytics-page-secondary-navbar {
+  align-self: end;
+  
+}
+
 .navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
   justify-self: end;
 }
@@ -37,7 +42,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr; /* 1/3 and 2/3 of the width */
   /* gap: 16px; Adjust the gap between the cards */
-  height: 75vh; /* Full height of the viewport */
+  height: 65vh; /* Full height of the viewport */
 }
 
 .analytics-page-left-column {
