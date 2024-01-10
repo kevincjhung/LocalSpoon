@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom'
 import * as React from 'react';
 
-import TopSellingProductsCard from '../../components/analytics/TopSellingProductsCard';
+import TopSellingProductsCard from '../../components/analytics/PastSalesByStoreCard';
 
 
 export default function AnalyticsPage() {
-  const [value, setValue] = React.useState('Main');
+  const [value, setValue] = React.useState('Analytics Dashboard');
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };

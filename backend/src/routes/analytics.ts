@@ -118,7 +118,7 @@ router.get('/stores/:storeId/sales', async (req: Request, res: Response) => {
       WHERE pr.store_id = ${storeId}
         AND po.purchase_date >= ${currentDate.toISOString()}::date
       GROUP BY day
-      ORDER BY day DESC;`;
+      ORDER BY day;`;
 
     res.status(200).json(pastSales);
   } catch (error) {

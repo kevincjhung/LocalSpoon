@@ -3,6 +3,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+
 // Import Routers
 const indexRouter = require('./routes/index');
 const buyersRouter = require('./routes/buyer');
@@ -12,14 +13,23 @@ const analyticsRouter = require('./routes/analytics');
 const productRouter = require('./routes/product');
 const purchaseOrderRouter = require('./routes/purchase-order');
 
-
 const app = express()
+
 
 // Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 
 // Router middleware
 app.use('/', indexRouter);
@@ -34,6 +44,7 @@ app.use('/api/purchase-orders', purchaseOrderRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
   // set locals, only providing error in development
