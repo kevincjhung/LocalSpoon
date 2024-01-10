@@ -25,10 +25,13 @@
   left: 0;
 }
 
-.analytics-page-ContentCopy{
+.analytics-page-content{
   width: 77%;
-  margin: auto;
+  margin: 5vh auto;
   position: relative;
+  border-radius: 16px;
+  background-color: #ffffff;
+
 }
 
 .analytics-page-secondary-navbar {
@@ -48,28 +51,33 @@
 
 .analytics-page-grid-container {
   display: grid;
-  grid-template-columns: 1fr 2fr; 
-  height: 65vh; 
+  grid-template-columns: 1fr 1fr; 
+  height: calc(65vh - 10vh); 
+  margin: auto;
 }
 
-.analytics-page-left-column {
+.analytics-page-grid-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Two rows, each taking up 1/2 of the height */
+}
+
+.analytics-page-top-row {
+  grid-column: 1 / -1; /* Span the entire width */
   border: solid blue 1px;
 }
 
-
-.analytics-page-right-column {
+.analytics-page-bottom-row {
   display: grid;
-  grid-template-rows: 1fr 1fr; /* Two rows, each taking up 1/2 of the height */
-  height: 100%; /* Full height of the parent container */
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-column: 1 / -1; /* Span the entire width */
+  border: solid orange 1px;
 }
 
-
-.analytics-page-top-card{
-  border: solid green 1px;
-}
-
-.analytics-page-bottom-card {
-  border: solid red 1px;
+.analytics-bottom-container {
+  border: 1px solid purple; /* Add a border for separation */
+  padding: 16px; /* Add padding for better spacing */
+  text-align: center; /* Center align text or content */
+  /* Add any additional styling based on your design */
 }
 
 @media (max-width: 768px) {

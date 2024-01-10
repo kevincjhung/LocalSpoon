@@ -7,12 +7,12 @@ import * as React from 'react';
 
 export default function AnalyticsPage() {
   const [value, setValue] = React.useState('Main');
-	const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-		setValue(newValue);
-	};
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
-    <div className="analytics-page-ContentCopy">
+    <div className="analytics-page-content">
       <div className="analytics-page-secondary-navbar ">
         <div className='mb-1'>
           <Box>
@@ -47,12 +47,19 @@ export default function AnalyticsPage() {
         </div>
       </div>
       <div className="analytics-page-grid-container">
-        <div className="analytics-page-left-column">
-          
+        <div className="analytics-page-top-row">
+          {/* Content for the top row */}
         </div>
-        <div className="analytics-page-right-column">
-          <div className="analytics-page-top-card">Top Card</div>
-          <div className="analytics-page-bottom-card">Bottom Card</div>
+        <div className="analytics-page-bottom-row">
+          <div className="analytics-bottom-container">
+            {/* Content for the first container */}
+          </div>
+          <div className="analytics-bottom-container">
+            {/* Content for the second container */}
+          </div>
+          <div className="analytics-bottom-container">
+            {/* Content for the third container */}
+          </div>
         </div>
       </div>
     </div>
