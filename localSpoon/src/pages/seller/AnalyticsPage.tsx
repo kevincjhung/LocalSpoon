@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom'
 import * as React from 'react';
 
+import TopSellingProductsCard from '../../components/analytics/TopSellingProductsCard';
+
 
 export default function AnalyticsPage() {
   const [value, setValue] = React.useState('Main');
@@ -48,7 +50,7 @@ export default function AnalyticsPage() {
       </div>
       <div className="analytics-page-grid-container">
         <div className="analytics-page-top-row">
-          {/* Content for the top row */}
+          <TopSellingProductsCard />
         </div>
         <div className="analytics-page-bottom-row">
           <div className="analytics-bottom-container">

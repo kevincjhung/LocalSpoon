@@ -30,15 +30,17 @@
   margin: 5vh auto;
   position: relative;
   border-radius: 16px;
+  border: solid 1px green;
   background-color: #ffffff;
 
 }
 
 .analytics-page-secondary-navbar {
-  padding-top: 1.5rem;
+  /* padding-top: 0.75rem; */
   width: 77%;
   margin: auto;
   position: relative;
+  border: turquoise solid 1px;
 }
 
 .navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
