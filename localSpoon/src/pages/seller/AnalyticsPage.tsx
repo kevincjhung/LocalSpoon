@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import * as React from 'react';
 
 import TopSellingProductsCard from '../../components/analytics/PastSalesByStoreCard';
+import TopSellerCard from '../../components/analytics/TopSellerCard';
 
 
 export default function AnalyticsPage() {
@@ -53,8 +54,8 @@ export default function AnalyticsPage() {
           <TopSellingProductsCard storeId={1}/>
         </div>
         <div className="analytics-page-bottom-row">
-          <div className="analytics-bottom-container">
-            {/* Content for the first container */}
+          <div className="analytics-bottom-container analytics-bottom-left">
+            <TopSellerCard />
           </div>
           <div className="analytics-bottom-container">
             {/* Content for the second container */}

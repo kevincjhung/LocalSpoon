@@ -30,7 +30,6 @@
   margin: 5vh auto;
   position: relative;
   border-radius: 16px;
-  border: solid 1px green;
   background-color: #ffffff;
 
 }
@@ -40,7 +39,6 @@
   width: 77%;
   margin: auto;
   position: relative;
-  border: turquoise solid 1px;
 }
 
 .navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
@@ -65,21 +63,24 @@
 
 .analytics-page-top-row {
   grid-column: 1 / -1; /* Span the entire width */
-  border: solid blue 1px;
 }
 
 .analytics-page-bottom-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
   grid-column: 1 / -1; /* Span the entire width */
-  border: solid orange 1px;
 }
 
 .analytics-bottom-container {
-  border: 1px solid purple; /* Add a border for separation */
   padding: 16px; /* Add padding for better spacing */
   text-align: center; /* Center align text or content */
   /* Add any additional styling based on your design */
+}
+
+
+
+.analytics-bottom-left{
+  border: 1px red solid;
 }
 
 @media (max-width: 768px) {
@@ -88,3 +89,4 @@
     grid-template-columns: 1fr; /* Single column for smaller screens */
   }
 }
+

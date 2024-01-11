@@ -46,8 +46,3 @@ function App() {
 }
 
 export default App;
-"/seller/analytics/dashboard"
-"/seller/analytics/sales-analytics"
-"/seller/analytics/purchase-order-analytics"
-"/seller/analytics/top-sellers"
-"/seller/analytics/revenue-analytics"
