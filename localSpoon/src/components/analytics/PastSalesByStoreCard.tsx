@@ -22,7 +22,6 @@ const TopSellingProductsCard: React.FC<TopSellingProductsCardProps> = ({ storeId
       try {
         // TODO: StoreId is hardcoded for now, replace after auth is implemented
         const response = await axios.get<SalesDataItem[]>(`http://localhost:3000/api/analytics/stores/1/sales?numberOfDays=180`);
-        console.log(response.data);
         setPastSalesData(response.data);
       } catch (error) {
         console.error(error);

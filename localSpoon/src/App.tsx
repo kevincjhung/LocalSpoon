@@ -1,9 +1,20 @@
 // Library Imports
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
-import theme from './theme';
+import {
+  // useQuery,
+  // useMutation,
+  // useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+  // Query,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
 
 // Styling Imports
+import theme from './theme';
 import './App.css';
 
 // Page imports
@@ -17,8 +28,11 @@ import Shop from './pages/seller/ShopPage';
 import Navbar from './components/Navbar';
 
 function App() {
+  const queryClient = new QueryClient()
+  
   return (
     <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -41,6 +55,8 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
