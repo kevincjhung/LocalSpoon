@@ -75,7 +75,7 @@ export default function TopSellerCard() {
   }, [chartData]);
 
   return (
-    <div className="canvasContainer">
+    <div className="analytics-top-selling-products-card">
       <h1>Top Selling Products</h1>
       <canvas id="myDoughnutChart"></canvas>
     </div>
