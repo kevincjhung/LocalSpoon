@@ -8,6 +8,7 @@ type Product = {
   price: number;
   description: string;
   total_quantity: number;
+  total_revenue: number;
 };
 
 interface ChartData {
@@ -17,6 +18,7 @@ interface ChartData {
     backgroundColor: string[];
   }[];
 }
+
 
 export default function MostRevenueProductsDoughnutchartCard() {
   const [chartData, setChartData] = useState<ChartData>({
@@ -33,11 +35,10 @@ export default function MostRevenueProductsDoughnutchartCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/analytics/stores/1/top-revenue-products`);
-        console.log(response.data);
         // Extract relevant data from the response
         const products: Product[] = response.data;
         const labels = products.map((product) => product.name);
-        const data = products.map((product) => product.total_quantity);
+        const data = products.map((product) => product.total_revenue);
 
         // Update the state with the chart data
         setChartData({
@@ -59,13 +60,13 @@ export default function MostRevenueProductsDoughnutchartCard() {
 
   useEffect(() => {
     // Destroy existing Chart instance if it exists
-    const existingChart = Chart.getChart('myDoughnutChart');
+    const existingChart = Chart.getChart('mostRevenueProductsDoughnutChart');
     if (existingChart) {
       existingChart.destroy();
     }
 
     // Create and render the doughnut chart
-    const ctx = document.getElementById('myDoughnutChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('mostRevenueProductsDoughnutChart') as HTMLCanvasElement;
     new Chart(ctx, {
       type: 'doughnut',
       data: chartData,
@@ -74,8 +75,8 @@ export default function MostRevenueProductsDoughnutchartCard() {
 
   return (
     <div className="analytics-top-selling-products-card ">
-      <h1>Top Revenue Products</h1>
-      <canvas id="myDoughnutChart"></canvas>
+      <h1>Top Selling Products By Revenue</h1>
+      <canvas id="mostRevenueProductsDoughnutChart"></canvas>
     </div>
   );
 }

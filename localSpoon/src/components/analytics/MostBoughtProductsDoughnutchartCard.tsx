@@ -61,13 +61,13 @@ export default function MostBoughtProductsDoughnutchartCard() {
 
   useEffect(() => {
     // Destroy existing Chart instance if it exists
-    const existingChart = Chart.getChart('myDoughnutChart');
+    const existingChart = Chart.getChart('mostBoughtProductsDoughnutChart');
     if (existingChart) {
       existingChart.destroy();
     }
 
     // Create and render the doughnut chart
-    const ctx = document.getElementById('myDoughnutChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('mostBoughtProductsDoughnutChart') as HTMLCanvasElement;
     new Chart(ctx, {
       type: 'doughnut',
       data: chartData,
@@ -76,8 +76,8 @@ export default function MostBoughtProductsDoughnutchartCard() {
 
   return (
     <div className="analytics-top-selling-products-card">
-      <h1>What You've Sold The Most</h1>
-      <canvas id="myDoughnutChart"></canvas>
+      <h1>Top Selling Products By Quantity</h1>
+      <canvas id="mostBoughtProductsDoughnutChart"></canvas>
     </div>
   );
 }
