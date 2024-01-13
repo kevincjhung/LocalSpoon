@@ -6,6 +6,7 @@ import * as React from 'react';
 
 import PastSalesByStoreLinechartCard from '../../components/analytics/PastSalesByStoreLinechartCard';
 import MostBoughtProductsDoughnutchartCard from '../../components/analytics/MostBoughtProductsDoughnutchartCard';
+import MostRevenueProductsDoughnutchartCard from '../../components/analytics/MostRevenueProductsDoughnutchartCard';
 
 
 export default function AnalyticsPage() {
@@ -60,8 +61,8 @@ export default function AnalyticsPage() {
           <div className="analytics-bottom-container">
             {/* Content for the second container */}
           </div>
-          <div className="analytics-bottom-container">
-            {/* Content for the third container */}
+          <div className="analytics-bottom-container analytics-bottom-right">
+            <MostRevenueProductsDoughnutchartCard />
           </div>
         </div>
       </div>

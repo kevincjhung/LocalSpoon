@@ -188,7 +188,7 @@ router.get('/stores/:storeId/top-revenue-products', async (req: Request, res: Re
       SELECT
         poa.product_id, pr.name, pr.price, pr.description,
         SUM(poa.quantity)::int AS total_quantity,
-        MAX(pr.price * poa.quantity) AS highest_total_price
+        SUM(poa.quantity * pr.price)::int AS total_revenue
       FROM "PurchaseOrderProductAssociation" AS poa
       LEFT JOIN "PurchaseOrder" AS po
         ON poa.purchase_order_id = po.id

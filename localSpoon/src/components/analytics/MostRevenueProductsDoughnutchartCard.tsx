@@ -18,7 +18,7 @@ interface ChartData {
   }[];
 }
 
-export default function MostBoughtProductsDoughnutchartCard() {
+export default function MostRevenueProductsDoughnutchartCard() {
   const [chartData, setChartData] = useState<ChartData>({
     labels: [],
     datasets: [
@@ -32,10 +32,8 @@ export default function MostBoughtProductsDoughnutchartCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/analytics/stores/1/top-selling-products`
-        );
-
+        const response = await axios.get(`http://localhost:3000/api/analytics/stores/1/top-revenue-products`);
+        console.log(response.data);
         // Extract relevant data from the response
         const products: Product[] = response.data;
         const labels = products.map((product) => product.name);
@@ -75,8 +73,8 @@ export default function MostBoughtProductsDoughnutchartCard() {
   }, [chartData]);
 
   return (
-    <div className="analytics-top-selling-products-card">
-      <h1>What You've Sold The Most</h1>
+    <div className="analytics-top-selling-products-card ">
+      <h1>Top Revenue Products</h1>
       <canvas id="myDoughnutChart"></canvas>
     </div>
   );
