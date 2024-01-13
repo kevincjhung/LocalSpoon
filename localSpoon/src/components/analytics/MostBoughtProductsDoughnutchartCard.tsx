@@ -18,7 +18,7 @@ interface ChartData {
   }[];
 }
 
-export default function TopSellerCard() {
+export default function MostBoughtProductsDoughnutchartCard() {
   const [chartData, setChartData] = useState<ChartData>({
     labels: [],
     datasets: [
@@ -33,7 +33,7 @@ export default function TopSellerCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/api/analytics/stores/1/top-selling-products'
+          `http://localhost:3000/api/analytics/stores/1/top-selling-products`
         );
 
         // Extract relevant data from the response

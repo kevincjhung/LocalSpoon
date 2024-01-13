@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom'
 import * as React from 'react';
 
-import TopSellingProductsCard from '../../components/analytics/PastSalesByStoreCard';
-import TopSellerCard from '../../components/analytics/TopSellerCard';
+import PastSalesByStoreLinechartCard from '../../components/analytics/PastSalesByStoreLinechartCard';
+import MostBoughtProductsDoughnutchartCard from '../../components/analytics/MostBoughtProductsDoughnutchartCard';
 
 
 export default function AnalyticsPage() {
@@ -51,11 +51,11 @@ export default function AnalyticsPage() {
       </div>
       <div className="analytics-page-grid-container">
         <div className="analytics-page-top-row">
-          <TopSellingProductsCard storeId={1}/>
+          <PastSalesByStoreLinechartCard storeId={1}/>
         </div>
         <div className="analytics-page-bottom-row">
           <div className="analytics-bottom-container analytics-bottom-left">
-            <TopSellerCard />
+            <MostBoughtProductsDoughnutchartCard />
           </div>
           <div className="analytics-bottom-container">
             {/* Content for the second container */}

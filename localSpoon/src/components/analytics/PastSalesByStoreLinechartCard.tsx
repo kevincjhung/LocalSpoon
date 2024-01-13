@@ -12,7 +12,7 @@ interface SalesDataItem {
   total_sales_amount: number;
 }
 
-const TopSellingProductsCard: React.FC<TopSellingProductsCardProps> = ({ storeId }) => {
+const PastSalesByStoreLinechartCard: React.FC<TopSellingProductsCardProps> = ({ storeId }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const [pastSalesData, setPastSalesData] = useState<SalesDataItem[]>([]);
@@ -89,4 +89,4 @@ const TopSellingProductsCard: React.FC<TopSellingProductsCardProps> = ({ storeId
   );
 };
 
-export default TopSellingProductsCard;
+export default PastSalesByStoreLinechartCard;
