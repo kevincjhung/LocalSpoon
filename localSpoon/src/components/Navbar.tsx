@@ -25,25 +25,25 @@ export default function Navbar() {
 		<>
 			<nav className="">
 				<div className="navbar-grid-container">
-					<div className="top-left mt-3">
+					<div className="navbar-top-left mt-3">
 						<img src="/localscoop-logo.svg" alt="localscoop logo" width={35} height={35} />
 					</div>
-					<div className="top-middle">
+					<div className="navbar-top-middle">
 
 					</div>
-					<div className="top-right mt-3">
+					<div className="navbar-top-right mt-3">
 						<p>Account</p>
 					</div>
-					<div className="navbar-store-name middle-left">
+					<div className="navbar-store-name navbar-middle-left">
 						<Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>{placeHolderStoreName}</Typography>
 					</div>
-					<div className="middle-middle">
+					<div className="navbar-middle-middle">
 
 					</div>
-					<div className="middle-right">
+					<div className="navbar-middle-right">
 
 					</div>
-					<div className='bottom-left'>
+					<div className='navbar-bottom-left'>
 						<Box sx={{
 							margin: "0",
 							padding: "0"
@@ -77,10 +77,10 @@ export default function Navbar() {
 							</Tabs>
 						</Box>
 					</div>
-					<div className="bottom-middle">
+					<div className="navbar-bottom-middle">
 
 					</div>
-					<div className="bottom-right">
+					<div className="navbar-bottom-right">
 
 					</div>
 				</div>

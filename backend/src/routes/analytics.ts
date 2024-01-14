@@ -118,7 +118,7 @@ router.get('/stores/:storeId/sales', async (req: Request, res: Response) => {
       WHERE pr.store_id = ${storeId}
         AND po.purchase_date >= ${currentDate.toISOString()}::date
       GROUP BY day
-      ORDER BY day DESC;`;
+      ORDER BY day;`;
 
     res.status(200).json(pastSales);
   } catch (error) {
@@ -188,7 +188,7 @@ router.get('/stores/:storeId/top-revenue-products', async (req: Request, res: Re
       SELECT
         poa.product_id, pr.name, pr.price, pr.description,
         SUM(poa.quantity)::int AS total_quantity,
-        MAX(pr.price * poa.quantity) AS highest_total_price
+        SUM(poa.quantity * pr.price)::int AS total_revenue
       FROM "PurchaseOrderProductAssociation" AS poa
       LEFT JOIN "PurchaseOrder" AS po
         ON poa.purchase_order_id = po.id

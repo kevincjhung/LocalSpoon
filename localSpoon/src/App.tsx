@@ -1,9 +1,20 @@
 // Library Imports
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
-import theme from './theme';
+import {
+  // useQuery,
+  // useMutation,
+  // useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+  // Query,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
 
 // Styling Imports
+import theme from './theme';
 import './App.css';
 
 // Page imports
@@ -17,8 +28,11 @@ import Shop from './pages/seller/ShopPage';
 import Navbar from './components/Navbar';
 
 function App() {
+  const queryClient = new QueryClient()
+  
   return (
     <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,16 +42,23 @@ function App() {
           >
             <Route path="create-store" element={<CreateStore />} />
             <Route index element={<SellerLanding />} />
-            <Route path="analytics" element={<Analytics />} />
+            <Route path="analytics"  element={<Analytics />}>
+              <Route path="dashboard" index element={<div>Dashboard</div>} />
+              <Route path="sales-analytics" element={<div>Sales Analytics</div>} />
+              <Route path="purchase-order-analytics" element={<div>Purchase Order Analytics</div>} />
+              <Route path="top-sellers" element={<div>Top Sellers</div>} />
+              <Route path="revenue-analytics" element={<div>Revenue Analytics</div>} />
+            </Route>
             <Route path="add-product" element={<ProductPosting />} />
             <Route path="orders" element={<SellerOrders />} />
             <Route path="shop/:shopID" element={<Shop />} />
           </Route>
         </Routes>
       </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
-
 }
 
 export default App;

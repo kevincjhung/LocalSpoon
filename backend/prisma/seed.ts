@@ -236,57 +236,65 @@ async function seedStore() {
 }
 
 
+
 async function seedPurchaseOrdersAndAssociations() {
-	try {
-		// Retrieve the IDs of all buyers and products
-		const buyers = await prisma.buyer.findMany();
-		const products = await prisma.product.findMany();
+  try {
+    // Retrieve the IDs of all buyers and products
+    const buyers = await prisma.buyer.findMany();
+    const products = await prisma.product.findMany();
+    const stores = await prisma.store.findMany();
 
-		if (buyers.length === 0 || products.length === 0) {
-			console.warn('Unable to seed purchase orders. Buyers or products not found.');
-			return;
-		}
+    if (buyers.length === 0 || products.length === 0 || stores.length === 0) {
+      console.warn('Unable to seed purchase orders. Buyers, products, or stores not found.');
+      return;
+    }
 
-		// Loop through all buyers
-		for (let buyer of buyers) {
-			// Select a random number of products to buy
-			const numberOfProductsToBuy = Math.floor(Math.random() * 15);
+    // Loop through all buyers
+    for (let i = 0; i < buyers.length; i++) {
+      const buyer = buyers[i];
+      const store = stores[i % stores.length]; // Use modulo to cycle through stores
 
-			// Create a purchase order for the buyer
-			await prisma.purchaseOrder.create({
-				data: {
-					buyer_id: buyer.id,
-					purchase_date: generateSkewedDate(),
-					PurchaseOrderProductAssociation: {
-						create: products
-							.slice(0, numberOfProductsToBuy) // Take a slice of the products array based on the random number
-							.map((product) => ({
-								quantity: Math.floor(Math.random() * 10) + 1,
-								Product: {
-									connect: {
-										id: product.id,
-									},
-								},
-							})),
-					},
-				},
-			});
-		}
-	} catch (error) {
-		console.error('Error during seeding purchase orders and associations:', error);
-	}
+      // Select a random number of products to buy
+      const numberOfProductsToBuy = Math.floor(Math.random() * 15);
+
+      // Shuffle the products array to get a random selection
+      const shuffledProducts = [...products].sort(() => Math.random() - 0.5);
+
+      // Create a purchase order for the buyer
+      await prisma.purchaseOrder.create({
+        data: {
+          buyer_id: buyer.id,
+          purchase_date: generateSkewedDate(),
+          PurchaseOrderProductAssociation: {
+            create: shuffledProducts
+              .slice(0, numberOfProductsToBuy)
+              .map((product) => ({
+                quantity: Math.floor(Math.random() * 10) + 1,
+                Product: {
+                  connect: {
+                    id: product.id,
+                  },
+                },
+              })),
+          },
+        },
+      });
+    }
+  } catch (error) {
+    console.error('Error during seeding purchase orders and associations:', error);
+  }
 }
 
 
 async function seedData() {
 	try {
-		// await seedBuyer()
-		// await seedStore()
+		// for (let i = 0; i < 200; i++) {
+		// 	await seedBuyer()
+		// 	await seedStore()
+		// }
 
-		for (let i = 0; i < 300; i++) {
+		for (let i = 0; i <20; i++) {
 			await seedPurchaseOrdersAndAssociations()
-
-			// console.log(generateSkewedDate())
 		}
 	} catch (error) {
 		console.error('Error during seeding:', error);
