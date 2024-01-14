@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
           </Box>
         </div>
       </div>
-      <div className="analytics-page-grid-container">
+      <div className="analytics-page-grid-container m-6">
         <div className="analytics-page-top-row">
           <PastSalesByStoreLinechartCard storeId={1}/>
         </div>
