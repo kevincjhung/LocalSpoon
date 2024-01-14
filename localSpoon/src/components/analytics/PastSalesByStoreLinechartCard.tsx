@@ -43,7 +43,7 @@ const PastSalesByStoreLinechartCard: React.FC<TopSellingProductsCardProps> = ({ 
           {
             label: 'Sales of The Past Year',
             data: pastSalesData.map((item) => item.total_sales_amount),
-            borderColor: 'rgba(75, 192, 192, 1)',
+            borderColor: '#36A2EB',
             borderWidth: 1,
             fill: false,
             pointStyle: false,
