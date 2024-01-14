@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import * as React from 'react';
 
 import PastSalesByStoreLinechartCard from '../../components/analytics/PastSalesByStoreLinechartCard';
-import MostBoughtProductsDoughnutchartCard from '../../components/analytics/MostBoughtProductsDoughnutchartCard';
-import MostRevenueProductsDoughnutchartCard from '../../components/analytics/MostRevenueProductsDoughnutchartCard';
-
+import TopSellingProductsByQuantityCard from '../../components/analytics/TopSellingProductsByQuantityCard';
+import TopSellingProductsByRevenueCard from '../../components/analytics/TopSellingProductsByRevenueCard';
+import PastSalesByMonth from '../../components/analytics/PastSalesByMonth';
 
 export default function AnalyticsPage() {
   const [value, setValue] = React.useState('Analytics Dashboard');
@@ -56,13 +56,13 @@ export default function AnalyticsPage() {
         </div>
         <div className="analytics-page-bottom-row">
           <div className="analytics-bottom-container analytics-bottom-left">
-            <MostBoughtProductsDoughnutchartCard />
+            <TopSellingProductsByQuantityCard />
           </div>
           <div className="analytics-bottom-container">
-            {/* Content for the second container */}
+            <PastSalesByMonth storeId={1}/>
           </div>
           <div className="analytics-bottom-container analytics-bottom-right">
-            <MostRevenueProductsDoughnutchartCard />
+            <TopSellingProductsByRevenueCard />
           </div>
         </div>
       </div>

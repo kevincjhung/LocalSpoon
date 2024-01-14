@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
+
 type Product = {
   product_id: number;
   name: string;
   price: number;
   description: string;
   total_quantity: number;
-  total_revenue: number;
 };
 
 interface ChartData {
@@ -19,8 +19,7 @@ interface ChartData {
   }[];
 }
 
-
-export default function MostRevenueProductsDoughnutchartCard() {
+export default function TopSellingProductsByQuantity() {
   const [chartData, setChartData] = useState<ChartData>({
     labels: [],
     datasets: [
@@ -34,11 +33,14 @@ export default function MostRevenueProductsDoughnutchartCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/analytics/stores/1/top-revenue-products`);
+        const response = await axios.get(
+          `http://localhost:3000/api/analytics/stores/1/top-selling-products`
+        );
+
         // Extract relevant data from the response
         const products: Product[] = response.data;
         const labels = products.map((product) => product.name);
-        const data = products.map((product) => product.total_revenue);
+        const data = products.map((product) => product.total_quantity);
 
         // Update the state with the chart data
         setChartData({
@@ -60,13 +62,13 @@ export default function MostRevenueProductsDoughnutchartCard() {
 
   useEffect(() => {
     // Destroy existing Chart instance if it exists
-    const existingChart = Chart.getChart('mostRevenueProductsDoughnutChart');
+    const existingChart = Chart.getChart('TopSellingProductsByQuantity');
     if (existingChart) {
       existingChart.destroy();
     }
 
     // Create and render the doughnut chart
-    const ctx = document.getElementById('mostRevenueProductsDoughnutChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('TopSellingProductsByQuantity') as HTMLCanvasElement;
     new Chart(ctx, {
       type: 'doughnut',
       data: chartData,
@@ -74,9 +76,9 @@ export default function MostRevenueProductsDoughnutchartCard() {
   }, [chartData]);
 
   return (
-    <div className="analytics-top-selling-products-card ">
-      <h1>Top Selling Products By Revenue</h1>
-      <canvas id="mostRevenueProductsDoughnutChart"></canvas>
+    <div className="analytics-top-selling-products-card">
+      <h1>Top Selling Products By Quantity</h1>
+      <canvas id="TopSellingProductsByQuantity"></canvas>
     </div>
   );
 }
