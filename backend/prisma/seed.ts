@@ -288,12 +288,12 @@ async function seedPurchaseOrdersAndAssociations() {
 
 async function seedData() {
 	try {
-		// for (let i = 0; i < 200; i++) {
-		// 	await seedBuyer()
-		// 	await seedStore()
-		// }
+		for (let i = 0; i < 100; i++) {
+			await seedBuyer()
+			await seedStore()
+		}
 
-		for (let i = 0; i <20; i++) {
+		for (let i = 0; i < 200; i++) {
 			await seedPurchaseOrdersAndAssociations()
 		}
 	} catch (error) {
