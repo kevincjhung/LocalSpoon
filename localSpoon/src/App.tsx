@@ -25,7 +25,10 @@ import Analytics from './pages/seller/AnalyticsPage';
 import ProductPosting from './pages/seller/ProductPostingPage';
 import SellerOrders from './pages/seller/SellerOrdersPage';
 import Shop from './pages/seller/ShopPage';
-import Navbar from './components/Navbar';
+import ExplorePage from './pages/buyer/ExplorePage';
+
+// Component imports
+import SellerNavbar from './components/SellerNavbar';
 
 function App() {
   const queryClient = new QueryClient()
@@ -38,7 +41,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/seller/*"
-            element={<Navbar />}
+            element={<SellerNavbar />}
           >
             <Route path="create-store" element={<CreateStore />} />
             <Route index element={<SellerLanding />} />
@@ -52,6 +55,9 @@ function App() {
             <Route path="add-product" element={<ProductPosting />} />
             <Route path="orders" element={<SellerOrders />} />
             <Route path="shop/:shopID" element={<Shop />} />
+          </Route>
+          <Route path='/buyer/*' >
+            <Route path='explore' element={<ExplorePage />} />
           </Route>
         </Routes>
       </Router>

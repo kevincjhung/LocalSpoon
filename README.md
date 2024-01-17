@@ -1,6 +1,5 @@
 # README
 
-
 This is a remastered version of a prior e-commerce application project at BCIT. The improvements build upon the foundation of the original project.
 
 The project drew significant inspiration from the following designs:

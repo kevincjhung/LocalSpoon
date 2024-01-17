@@ -86,4 +86,4 @@ router.get('/stores/:storeId', async (req: Request, res: Response) => {
 
 
 
-module.exports = router;
+export default router;

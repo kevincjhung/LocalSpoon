@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 const router = express.Router();
 
 import { prisma } from '../database-client';
+import { ro } from '@faker-js/faker';
 
 /**
  * ! for testing, remove before production
@@ -66,4 +67,4 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 
-module.exports = router;
+export default router;
