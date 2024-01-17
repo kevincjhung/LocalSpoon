@@ -289,10 +289,8 @@ async function seedPurchaseOrdersAndAssociations() {
 async function seedData() {
 	try {
 		for (let i = 0; i < 20; i++) {
-			seedBuyer()
-		}
-		for (let i = 0; i < 20; i++) {
-			seedStore()
+			await seedBuyer()
+			await seedStore()
 		}
 
 		for (let i = 0; i < 100; i++) {
