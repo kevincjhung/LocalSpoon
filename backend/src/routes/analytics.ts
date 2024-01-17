@@ -3,6 +3,7 @@ const router = express.Router();
 
 import { prisma } from '../database-client';
 import { isUrlParamsNumeric } from '../../utils/validation';
+import { deflate } from 'zlib';
 
 
 
@@ -208,4 +209,4 @@ router.get('/stores/:storeId/top-revenue-products', async (req: Request, res: Re
 
 
 
-module.exports = router;
+export default router;

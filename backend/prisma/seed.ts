@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { faker } from '@faker-js/faker';
+import { faker, fakerFR } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -79,7 +79,7 @@ async function seedBuyer() {
 
 
 async function seedStore() {
-	let store_name = faker.company.name()
+	let store_name = Math.random() > 0.5 ? faker.company.name() : fakerFR.company.name()
 	let supports_delivery = ((Math.random() * 10) % 2 == 0) ? true : false
 	let store_delivery_radius = Math.floor(Math.random() * 3 + 1) * 10;
 	let address = faker.location.streetAddress()
@@ -132,8 +132,8 @@ async function seedStore() {
 			Product: {
 				create: [
 					{
-						name: faker.commerce.productName(),
-						description: faker.lorem.paragraph(),
+						name: Math.random() > 0.5 ? faker.commerce.productName() : fakerFR.commerce.productName(),
+						description: Math.random() > 0.5 ? faker.lorem.paragraph() : fakerFR.lorem.paragraph(),
 						price: parseFloat(faker.commerce.price()),
 						ProductCategoryAssignment: {
 							create: {
@@ -288,12 +288,14 @@ async function seedPurchaseOrdersAndAssociations() {
 
 async function seedData() {
 	try {
-		for (let i = 0; i < 100; i++) {
-			await seedBuyer()
-			await seedStore()
+		for (let i = 0; i < 20; i++) {
+			seedBuyer()
+		}
+		for (let i = 0; i < 20; i++) {
+			seedStore()
 		}
 
-		for (let i = 0; i < 200; i++) {
+		for (let i = 0; i < 100; i++) {
 			await seedPurchaseOrdersAndAssociations()
 		}
 	} catch (error) {

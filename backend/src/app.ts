@@ -5,13 +5,14 @@ import logger from 'morgan';
 
 
 // Import Routers
-const indexRouter = require('./routes/index');
-const buyersRouter = require('./routes/buyer');
-const sellerRouter = require('./routes/seller');
-const storeRouter = require('./routes/store');
-const analyticsRouter = require('./routes/analytics');
-const productRouter = require('./routes/product');
-const purchaseOrderRouter = require('./routes/purchase-order');
+import indexRouter from './routes/index';
+import buyersRouter from './routes/buyer';
+import sellerRouter from './routes/seller';
+import storeRouter from './routes/store';
+import analyticsRouter from './routes/analytics';
+import productRouter from './routes/product';
+import purchaseOrderRouter from './routes/purchase-order';
+import exploreRouter from './routes/explore';
 
 const app = express()
 
@@ -39,6 +40,8 @@ app.use('/api/stores', storeRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/products', productRouter);
 app.use('/api/purchase-orders', purchaseOrderRouter);
+app.use('/api/explore', exploreRouter);
+
 
 
 app.use(function(req, res, next) {
