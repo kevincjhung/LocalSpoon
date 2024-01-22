@@ -1,4 +1,4 @@
-import PhotoMosaic from "../../components/explore/photoMosaic"
+import PhotoMosaic from "../../components/explore/PhotoMosaic"
 
 export default function ExplorePage() {
   return (
