@@ -1,12 +1,12 @@
 import { useRef, useCallback } from 'react'
-import Post from '../../Post.jsx'
+import Post from './Post.jsx'
 import { useInfiniteQuery } from '@tanstack/react-query' // 
-import { getPostsPage } from '../../api/axios'
+import { getPostsPage } from '../../api/axios.js'
 
 // from tutorial, infinite scroll example
 // TODO: rename it and integrate into app
 
-const Example2 = () => {
+const InfiniScrollPhotoMosaic = () => {
 
 	const {
 		fetchNextPage,
@@ -58,4 +58,4 @@ const Example2 = () => {
 		</>
 	)
 }
-export default Example2
+export default InfiniScrollPhotoMosaic

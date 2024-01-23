@@ -16,37 +16,32 @@ router.get('/', async (req: Request, res: Response) => {
 
     const offset = (page - 1) * pageSize;
 
-
-    // ! TODO: implement keyset pagination for better performance
+    // Keyset pagination
     const productInfo = await prisma.$queryRaw`
-      WITH RankedPhotos AS (
-        SELECT
-          "Product".name,
-          "Product".description,
-          "ProductPhoto".resource_url,
-          "Store".id AS store_id,
-          "Store".store_name AS store_name,
-          "Store".store_description AS store_description,
-        ROW_NUMBER() OVER (PARTITION BY "Product".id ORDER BY "ProductPhoto".id) AS photo_rank
+      SELECT
+        "Product".name,
+        "Product".description,
+        "ProductPhoto".resource_url,
+        "Store".id AS store_id,
+        "Store".store_name AS store_name,
+        "Store".store_description AS store_description,
+        "Product".price AS price
       FROM
         "Product"
         LEFT JOIN "ProductPhoto" ON "Product".id = "ProductPhoto".product_id
         LEFT JOIN "Store" ON "Store".id = "Product".store_id
-      )
-        SELECT
-          name,
-          description,
-          resource_url,
-          store_id,
-          store_name,
-          store_description
-        FROM
-          RankedPhotos
-        WHERE
-          photo_rank = 1
-        ORDER BY
-          name 
-        OFFSET ${offset}
+      WHERE
+        (
+          "Product".id > (
+            SELECT "Product".id
+            FROM "Product"
+            ORDER BY "Product".id DESC
+            LIMIT 1 OFFSET ${offset}
+          )
+        )
+      ORDER BY
+        "Product".id ASC, "Product".name ASC
+      LIMIT ${pageSize};
     `;
 
     res.status(200).json(productInfo)

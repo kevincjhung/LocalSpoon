@@ -17,8 +17,8 @@ import Analytics from './pages/seller/AnalyticsPage';
 import ProductPosting from './pages/seller/ProductPostingPage';
 import SellerOrders from './pages/seller/SellerOrdersPage';
 import Shop from './pages/seller/ShopPage';
-import ExplorePage from './pages/buyer/ExplorePage';
-import Example2 from './components/explore/Example2';
+// import ExplorePage from './pages/buyer/ExplorePage';
+import InfiniScrollPhotoMosaic from './components/explore/InfiniteScrollPhotoMosaic';
 
 // Component imports
 import SellerNavbar from './components/SellerNavbar';
@@ -50,9 +50,8 @@ function App() {
               <Route path="shop/:shopID" element={<Shop />} />
             </Route>
             <Route path='/buyer/*' >
-              <Route path='explore' element={<ExplorePage />} />
+              <Route path='explore' element={<InfiniScrollPhotoMosaic />} />
             </Route>
-            <Route path="/explore" element={<Example2 />} />
           </Routes>
         </Router>
         <ReactQueryDevtools initialIsOpen={false} />
