@@ -4,7 +4,7 @@ const router = express.Router();
 import { prisma } from '../database-client';
 
 /** 
- *  GET /api/explore/
+ *  GET /api/explore/?page={page}&pageSize={pageSize}
  * 
  *  @throws {404} No buyers found.
  *  @throws {500} Internal Server Error.
@@ -15,7 +15,9 @@ router.get('/', async (req: Request, res: Response) => {
     const pageSize: number = parseInt(req.query.pageSize as string, 10) || 100;
 
     const offset = (page - 1) * pageSize;
-    
+
+
+    // ! TODO: implement keyset pagination for better performance
     const productInfo = await prisma.$queryRaw`
       WITH RankedPhotos AS (
         SELECT
