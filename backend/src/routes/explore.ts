@@ -16,11 +16,14 @@ router.get('/', async (req: Request, res: Response) => {
 
     const offset = (page - 1) * pageSize;
 
+    // TODO: Pass in the actual params to implement keyset pagination
+
     // Keyset pagination
     const productInfo = await prisma.$queryRaw`
       SELECT
         "Product".name,
         "Product".description,
+        "Product".id AS product_id,
         "ProductPhoto".resource_url,
         "Store".id AS store_id,
         "Store".store_name AS store_name,
@@ -31,18 +34,12 @@ router.get('/', async (req: Request, res: Response) => {
         LEFT JOIN "ProductPhoto" ON "Product".id = "ProductPhoto".product_id
         LEFT JOIN "Store" ON "Store".id = "Product".store_id
       WHERE
-        (
-          "Product".id > (
-            SELECT "Product".id
-            FROM "Product"
-            ORDER BY "Product".id DESC
-            LIMIT 1 OFFSET ${offset}
-          )
-        )
+        "Product".id > ${page}
       ORDER BY
         "Product".id ASC, "Product".name ASC
-      LIMIT ${pageSize};
+      LIMIT 10;
     `;
+    
 
     res.status(200).json(productInfo)
   } catch (error) {

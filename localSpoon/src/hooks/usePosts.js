@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { getPostsPage } from '../api/axios'
 
+/**
+ * This is an implementation of infinite scroll using React Hooks.
+ */
+
+
 const usePosts = (pageNum = 1) => {
 	const [results, setResults] = useState([])
 	const [isLoading, setIsLoading] = useState(false)
