@@ -12,9 +12,8 @@ import { prisma } from '../database-client';
 router.get('/', async (req: Request, res: Response) => {
   try {
     const page: number = parseInt(req.query.page as string, 10) || 1;
-    const pageSize: number = parseInt(req.query.pageSize as string, 10) || 100;
-
-    const offset = (page - 1) * pageSize;
+    
+    // const pageSize: number = parseInt(req.query.pageSize as string, 10) || 100;
 
     // TODO: Pass in the actual params to implement keyset pagination
 
