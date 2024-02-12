@@ -10,5 +10,5 @@ The project drew significant inspiration from the following designs:
 ## Stack 
 
 Frontend: React with vite, MaterialUI, Typescript
-Backend: Node.js, Express.js, Typescript
+Backend: Node.js, Express.js
 Database: Postgresql, Prisma
