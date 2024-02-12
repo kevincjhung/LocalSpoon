@@ -18,7 +18,7 @@ const theme = createTheme({
       },
     },
     typography: {
-      fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Poppins, "Segoe UI", Roboto, Arial, sans-serif',
     },
     shape: {
       borderRadius: 8,
