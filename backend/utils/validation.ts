@@ -6,7 +6,7 @@
  */
 function isUrlParamsNumeric(urlId: string): boolean {
   // Use a regular expression to test if the string consists of only digits.
-  return /^\d+$/.test(urlId);
+  return /^[0-9]+[a-zA-Z]*$/.test(urlId);
 }
 
 /**

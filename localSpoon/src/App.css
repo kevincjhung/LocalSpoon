@@ -17,18 +17,101 @@
   margin: 0; /* Remove default margin for paragraphs inside the div */
 }
 
-/* Nav Bar TODO: rename the classes */
-.bottom-left {
+
+.navbar-bottom-left {
   align-self: end;
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.bottom-right, .middle-right, .top-right {
+.analytics-page-content{
+  width: 77%;
+  margin: 5vh auto;
+  position: relative;
+  border-radius: 16px;
+  background-color: #ffffff;
+
+}
+
+
+
+.navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
   justify-self: end;
 }
 
-.middle-left {
+.navbar-middle-left {
   align-self: end;
 }
+
+.analytics-page-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  height: calc(65vh - 10vh); 
+  margin: auto;
+}
+
+.analytics-page-secondary-navbar {
+  /* padding-top: 0.75rem; */
+  width: 77%;
+  margin: auto;
+  position: relative;
+}
+
+.analytics-page-grid-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+}
+
+.analytics-page-top-row {
+  grid-column: 1 / -1; /* Span the entire width */
+}
+
+.analytics-page-bottom-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-column: 1 / -1; /* Span the entire width */
+}
+
+.analytics-bottom-container {
+  padding: 16px; /* Add padding for better spacing */
+  text-align: center; /* Center align text or content */
+}
+
+
+.analytics-bottom-left{
+  overflow: hidden; /* Hide overflow */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.analytics-top-selling-products-card {
+  position: relative;
+  width: 100%;
+  height: 90%; /* Updated to 100% height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-mosaic-container {
+  position: relative;
+  width: 100%;
+  height: 95vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  /* Responsive layout adjustments for smaller screens */
+  .grid-container {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+  }
+}
+

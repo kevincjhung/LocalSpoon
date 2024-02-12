@@ -9,7 +9,11 @@
 body {
   margin: 0;
   padding: 0; 
-  background-color: #f7f5f3
+  background-color: #f7f5f3;
+  /* check the last 3 lines makes a difference */ 
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the viewport */
 }
 
 nav {

@@ -3,23 +3,34 @@ import express from 'express'
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-// Import Routers
-const indexRouter = require('./routes/index');
-const buyersRouter = require('./routes/buyer');
-const sellerRouter = require('./routes/seller');
-const storeRouter = require('./routes/store');
-const analyticsRouter = require('./routes/analytics');
-const productRouter = require('./routes/product');
-const purchaseOrderRouter = require('./routes/purchase-order');
 
+// Import Routers
+import indexRouter from './routes/index';
+import buyersRouter from './routes/buyer';
+import sellerRouter from './routes/seller';
+import storeRouter from './routes/store';
+import analyticsRouter from './routes/analytics';
+import productRouter from './routes/product';
+import purchaseOrderRouter from './routes/purchase-order';
+import exploreRouter from './routes/explore';
 
 const app = express()
+
 
 // Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 
 // Router middleware
 app.use('/', indexRouter);
@@ -29,11 +40,14 @@ app.use('/api/stores', storeRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/products', productRouter);
 app.use('/api/purchase-orders', purchaseOrderRouter);
+app.use('/api/explore', exploreRouter);
+
 
 
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
   // set locals, only providing error in development

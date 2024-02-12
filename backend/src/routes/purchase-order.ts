@@ -4,17 +4,6 @@ const router = express.Router();
 import { prisma } from '../database-client';
 import { isUrlParamsNumeric } from '../../utils/validation';
 
-/** 
- * ! For testing, remove before production
- */
-router.get('/', async (req, res) => {
-  const purchaseOrders = await prisma.purchaseOrder.findMany();
-
-  res.send(purchaseOrders)
-});
-
-
-
 
 
 /**
@@ -97,7 +86,4 @@ router.get('/stores/:storeId', async (req: Request, res: Response) => {
 
 
 
-
-
-
-module.exports = router;
+export default router;

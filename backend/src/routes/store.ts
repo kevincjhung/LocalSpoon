@@ -10,12 +10,12 @@ const router = express.Router();
 
 
 /**
- * GET /stores
- * 
- * Retrieves all stores 
- * 
- * @throws {404} No stores found.
- * @throws {500} Internal Server Error.
+ *  GET /stores
+ *  
+ *  Retrieves all stores 
+ *  
+ *  @throws {404} No stores found.
+ *  @throws {500} Internal Server Error.
  */
 router.get('/', async (req: Request, res: Response) => {
   try {
@@ -36,12 +36,12 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 /**
- * GET /api/stores/{storeId}
- * 
- * Retrieves a single store by store id.
- * 
- * @throws {404} No stores found with given id.
- * @throws {500} Internal Server Error.
+ *  GET /api/stores/{storeId}
+ *  
+ *  Retrieves a single store by store id.
+ *  
+ *  @throws {404} No stores found with given id.
+ *  @throws {500} Internal Server Error.
  */
 router.get('/:storeId', async (req: Request, res: Response) => {
   const storeId: string = req.params.storeId;
@@ -72,8 +72,13 @@ router.get('/:storeId', async (req: Request, res: Response) => {
 
 
 
-// POST /stores 🚧
-//   Create a new store
+/**
+ * POST /stores
+ * Creates a new store
+ * 
+ * @throws {400} Invalid store input.
+ * @throws {500} Internal Server Error.
+ */
 router.post('/', async (req: Request, res: Response) => {
   const {
     store_name,
@@ -129,12 +134,12 @@ router.post('/', async (req: Request, res: Response) => {
 
 
 /**
- * GET /stores/{storeId}/photos 🚧
- * 
- * Retrieve all photos for a specific store
- * 
- * @throws {404} No photos found.
- * @throws {500} Internal Server Error.
+ *  GET /stores/{storeId}/photos 🚧
+ *  
+ *  Retrieve all photos for a specific store
+ *  
+ *  @throws {404} No photos found.
+ *  @throws {500} Internal Server Error.
  */
 router.get('/:storeId/photos', async (req: Request, res: Response) => {
   const storeId: string = req.params.storeId;
@@ -171,12 +176,12 @@ router.get('/:storeId/photos', async (req: Request, res: Response) => {
 
 
 /**
- * GET /stores/{storeId}/products 🚧
- * 
- * Retrieve all products for a specific store
- * 
- * @throws {404} No products found.
- * @throws {500} Internal Server Error.
+ *  GET /stores/{storeId}/products 🚧
+ *  
+ *  Retrieve all products for a specific store
+ *  
+ *  @throws {404} No products found.
+ *  @throws {500} Internal Server Error.
  */
 router.get('/:storeId/products', async (req: Request, res: Response) => {
   const storeId: string = req.params.storeId;
@@ -212,4 +217,4 @@ router.get('/:storeId/products', async (req: Request, res: Response) => {
 
 
 
-module.exports = router;
+export default router;
