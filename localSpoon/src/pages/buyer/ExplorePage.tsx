@@ -1,9 +1,9 @@
-import PhotoMosaic from "../../components/explore/photoMosaic"
+import ThreeColumnsInfiniteScroll from "../../components/explore/ThreeColumnsInfiniteScroll"
 
 export default function ExplorePage() {
   return (
-    <div className="explore-page photo-mosaic-container">
-      <PhotoMosaic />
+    <div className="photo-mosaic-container">
+      <ThreeColumnsInfiniteScroll />
     </div>
   )
 }

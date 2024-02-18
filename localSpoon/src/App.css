@@ -8,10 +8,12 @@
   position: relative;
 }
 
+
 .navbar-grid-container div {
   min-width: 0; /* Ensures that content does not affect the minimum width */
   min-height: 0; 
 }
+
 
 .navbar-grid-container div p {
   margin: 0; /* Remove default margin for paragraphs inside the div */
@@ -25,6 +27,7 @@
   left: 0;
 }
 
+
 .analytics-page-content{
   width: 77%;
   margin: 5vh auto;
@@ -35,14 +38,15 @@
 }
 
 
-
 .navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
   justify-self: end;
 }
 
+
 .navbar-middle-left {
   align-self: end;
 }
+
 
 .analytics-page-grid-container {
   display: grid;
@@ -51,6 +55,7 @@
   margin: auto;
 }
 
+
 .analytics-page-secondary-navbar {
   /* padding-top: 0.75rem; */
   width: 77%;
@@ -58,21 +63,25 @@
   position: relative;
 }
 
+
 .analytics-page-grid-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   overflow: hidden;
 }
 
+
 .analytics-page-top-row {
   grid-column: 1 / -1; /* Span the entire width */
 }
+
 
 .analytics-page-bottom-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
   grid-column: 1 / -1; /* Span the entire width */
 }
+
 
 .analytics-bottom-container {
   padding: 16px; /* Add padding for better spacing */
@@ -87,6 +96,7 @@
   align-items: stretch;
 }
 
+
 .analytics-top-selling-products-card {
   position: relative;
   width: 100%;
@@ -97,16 +107,25 @@
   align-items: center;
 }
 
+
 .photo-mosaic-container {
   position: relative;
   width: 100%;
   height: 95vh;
-  overflow-y: scroll;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
 }
+
+
+.photo-mosaic {
+  display: grid; /* Change display to grid */
+  grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
+  gap: 10px; 
+  max-width: 50%;
+  margin: auto;
+}
+
 
 @media (max-width: 768px) {
   /* Responsive layout adjustments for smaller screens */
