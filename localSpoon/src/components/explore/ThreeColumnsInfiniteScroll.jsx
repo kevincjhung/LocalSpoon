@@ -2,10 +2,8 @@ import React, { useRef, useCallback } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { getPostsPage } from '../../api/axios.js'
 
-// TODO: make it fetch data from the backend instead
-// TODO: implement the photo mosaic from material UI
 
-export default function InfiniScrollPhotoMosaic(){
+export default function ThreeColumnsInfiniteScroll(){
     // "name": string
     // "description": string
     // "resource_url": string
@@ -20,8 +18,6 @@ export default function InfiniScrollPhotoMosaic(){
 		const postBody = (
 			<>
 				<img src={post.resource_url} alt={post.name} />
-				{/* <p>Post ID: {post.name}</p>
-				<p>Post ID: {post.product_id}</p> */}
 			</>
 		)
 	
@@ -76,7 +72,7 @@ export default function InfiniScrollPhotoMosaic(){
 	})
 
 	return (
-		<div className="">
+		<div className="photo-mosaic-container">
 			{content}
 			{isFetchingNextPage && <p className="center">Loading...</p>}
 		</div>

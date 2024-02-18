@@ -35,7 +35,6 @@
 }
 
 
-
 .navbar-bottom-right, .navbar-middle-right, .navbar-top-right {
   justify-self: end;
 }
@@ -98,14 +97,14 @@
 }
 
 .photo-mosaic-container {
-  position: relative;
-  width: 100%;
+  /* position: relative; */
   height: 95vh;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid; /* Change display to grid */
+  grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
+  justify-items: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  gap: 10px; 
 }
 
 @media (max-width: 768px) {

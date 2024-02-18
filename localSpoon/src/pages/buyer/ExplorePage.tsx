@@ -1,5 +1,5 @@
 // import PhotoMosaic from "../../components/explore/PhotoMosaic"
-import InfiniScrollPhotoMosaic from "../../components/explore/InfiniteScrollPhotoMosaic"
+import InfiniScrollPhotoMosaic from "../../components/explore/ThreeColumnsInfiniteScroll"
 
 export default function ExplorePage() {
   return (

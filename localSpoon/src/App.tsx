@@ -17,13 +17,12 @@ import Analytics from './pages/seller/AnalyticsPage';
 import ProductPosting from './pages/seller/ProductPostingPage';
 import SellerOrders from './pages/seller/SellerOrdersPage';
 import Shop from './pages/seller/ShopPage';
-import InfiniScrollPhotoMosaic from './components/explore/InfiniteScrollPhotoMosaic';
-// import ExplorePage from './pages/buyer/ExplorePage';
 
 
 // Component imports
 import SellerNavbar from './components/SellerNavbar';
-import PhotoMosaic from './components/explore/PhotoMosaic';
+import ThreeColumnsInfiniteScroll from './components/explore/ThreeColumnsInfiniteScroll';
+
 
 function App() {
   const queryClient = new QueryClient()
@@ -52,8 +51,7 @@ function App() {
               <Route path="shop/:shopID" element={<Shop />} />
             </Route>
             <Route path='/buyer/*' >
-              <Route path='explore' element={<InfiniScrollPhotoMosaic />} />
-              <Route path='explorePhotoMosaic' element={<PhotoMosaic />} />
+              <Route path='explore' element={<ThreeColumnsInfiniteScroll />} />
             </Route>
           </Routes>
         </Router>
