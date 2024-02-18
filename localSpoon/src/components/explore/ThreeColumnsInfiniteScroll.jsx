@@ -52,7 +52,6 @@ export default function ThreeColumnsInfiniteScroll(){
 
 		intObserver.current = new IntersectionObserver(posts => {
 			if (posts[0].isIntersecting && hasNextPage) {
-				console.log('We are near the last post!')
 				fetchNextPage()
 			}
 		})
@@ -60,7 +59,7 @@ export default function ThreeColumnsInfiniteScroll(){
 		if (post) intObserver.current.observe(post)
 	}, [isFetchingNextPage, fetchNextPage, hasNextPage])
 
-	if (status === 'error') return <p className='center'>Error: {error.message}</p>
+	// if (status === 'error') return <p className='center'>Error: {error.message}</p>
 	
 	const content = data?.pages.map(pg => {
 		return pg.map((post, i) => {
@@ -72,7 +71,7 @@ export default function ThreeColumnsInfiniteScroll(){
 	})
 
 	return (
-		<div className="photo-mosaic-container">
+		<div className="photo-mosaic">
 			{content}
 			{isFetchingNextPage && <p className="center">Loading...</p>}
 		</div>

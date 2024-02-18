@@ -22,6 +22,7 @@ import Shop from './pages/seller/ShopPage';
 // Component imports
 import SellerNavbar from './components/SellerNavbar';
 import ThreeColumnsInfiniteScroll from './components/explore/ThreeColumnsInfiniteScroll';
+import ExplorePage from './pages/buyer/ExplorePage';
 
 
 function App() {
@@ -51,7 +52,7 @@ function App() {
               <Route path="shop/:shopID" element={<Shop />} />
             </Route>
             <Route path='/buyer/*' >
-              <Route path='explore' element={<ThreeColumnsInfiniteScroll />} />
+              <Route path='explore' element={<ExplorePage />} />
             </Route>
           </Routes>
         </Router>
