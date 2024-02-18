@@ -19,14 +19,9 @@ export default function InfiniScrollPhotoMosaic(){
 
 		const postBody = (
 			<>
-				{/* <h2>{post.name}</h2>
-				<p>{post.description}</p>
-				<p>{post.resource_url}</p>
-				<p>{post.store_id}</p>
-				<p>{post.store_description}</p> */}
-				<p>Post ID: {post.name}</p>
-				<p>Post ID: {post.product_id}</p>
-
+				<img src={post.resource_url} alt={post.name} />
+				{/* <p>Post ID: {post.name}</p>
+				<p>Post ID: {post.product_id}</p> */}
 			</>
 		)
 	
@@ -81,11 +76,9 @@ export default function InfiniScrollPhotoMosaic(){
 	})
 
 	return (
-		<>
-			<h1 id="top">&infin; Infinite Query &amp; Scroll<br />&infin; Ex. 2 - React Query</h1>
+		<div className="">
 			{content}
-			{isFetchingNextPage && <p className="center">Loading More Posts...</p>}
-			<p className="center"><a href="#top">Back to Top</a></p>
-		</>
+			{isFetchingNextPage && <p className="center">Loading...</p>}
+		</div>
 	)
 }
