@@ -1,7 +1,4 @@
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom'
+
 import * as React from 'react';
 
 import PastSalesByStoreLinechartCard from '../../components/analytics/PastSalesByStoreLinechartCard';
@@ -10,14 +7,9 @@ import TopSellingProductsByRevenueCard from '../../components/analytics/TopSelli
 import PastSalesByMonth from '../../components/analytics/PastSalesByMonth';
 
 export default function AnalyticsPage() {
-  const [value, setValue] = React.useState('Analytics Dashboard');
-  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
 
   return (
     <div className="analytics-page-content">
-      
       <div className="analytics-page-grid-container m-6">
         <div className="analytics-page-top-row">
           <PastSalesByStoreLinechartCard storeId={1}/>
