@@ -20,17 +20,19 @@ const PastSalesByMonth: React.FC<PastSalesByMonthProps> = ({ storeId }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get<SalesDataItem[]>(`http://localhost:3000/api/analytics/stores/${storeId}/sales-by-month?numberOfMonths=6`);
-        
-        // parse through the response, reformat the date as YYYY-MM
-      response.data.map((item) => {
-      const [year, month] = item.month.split('-');
-      return {
-        ...item,
-        month: `${year}-${month}`,
-      };
-    });
 
-        setPastSalesData(response.data);
+        
+       // parse through the response, reformat the date as YYYY-MM
+      const formattedData = response.data.map((item) => {
+        const [year, month] = item.month.split('-');
+        return {
+          ...item,
+          month: `${year}-${month}`,
+        };
+      });
+
+
+        setPastSalesData(formattedData);
       } catch (error) {
         console.error(error);
       }
@@ -81,13 +83,13 @@ const PastSalesByMonth: React.FC<PastSalesByMonthProps> = ({ storeId }) => {
         maintainAspectRatio: false,
         scales: {
           x: {
-            display: false,
+            display: true,
           },
           y: {
             display: false,
           },
         },
-        
+
       };
 
       if (ctx) {
