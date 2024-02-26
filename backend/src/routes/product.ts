@@ -42,8 +42,9 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   const productId: string = req.params.id;
 
-  if (isUrlParamsNumeric(productId)) {
+  if (!isUrlParamsNumeric(productId)) {
     res.status(400).json({ error: 'Invalid product ID' });
+    return
   }
 
   try {
