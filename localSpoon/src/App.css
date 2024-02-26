@@ -126,6 +126,32 @@
   margin: auto;
 }
 
+.product-page-image-section-container {
+  width: 40vw;
+  height: 85vh;
+  display: grid;
+  grid-template-rows: 3fr 1fr; 
+  padding: 0.7rem;
+}
+
+.product-page-carousel-slider {
+  display: flex;
+  overflow-y: scroll;
+  
+}
+
+.product-page-carousel-slider img {
+  height: auto;
+  padding: 0 1rem;
+  
+}
+
+.product-page-main-image {
+  height: 77%;
+  margin: auto;
+  display: block;
+}
+
 
 @media (max-width: 768px) {
   /* Responsive layout adjustments for smaller screens */
