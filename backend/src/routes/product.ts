@@ -31,7 +31,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 /**
- * GET /api/product/:id
+ * GET /api/products/:id
  * 
  * Retrieves a product by ID.
  * 
