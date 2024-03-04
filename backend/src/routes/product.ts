@@ -48,11 +48,17 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 
   try {
-    const product = await prisma.product.findUnique({
-      where: {
-        id: parseInt(productId, 10),
-      },
-    });
+    const product = await prisma.$queryRaw`
+    SELECT 
+      "Product".id,
+      "Product".name,
+      "Product".description,
+      "Product".price,
+      "Store".store_name
+    FROM "Product"
+    LEFT JOIN "Store" ON "Product".store_id = "Store".id
+    WHERE "Product".id = CAST(${productId} AS INTEGER)
+  `;
 
     if (!product) {
       res.status(404).json({ error: 'Product not found' });
