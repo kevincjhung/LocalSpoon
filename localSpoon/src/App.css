@@ -181,15 +181,15 @@
 
 .product-page-store,
 .product-page-price {
-  font-size: 0.75rem; /* Font size for store and price */
-  display: inline; 
+  font-size: 0.75rem; 
+  display: block; 
 }
 
-.product-page-store-price {
+/* .product-page-store-price {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-}
+} */
 
 .product-page-purchase-controls {
   margin-top: 3rem;
@@ -200,10 +200,9 @@
 
 
 
-@media (max-width: 768px) {
-  /* Responsive layout adjustments for smaller screens */
-  .grid-container {
-    grid-template-columns: 1fr; /* Single column for smaller screens */
+@media (max-width: 568px) {
+  .product-page-image-section-container {
+display: none;
   }
 }
 
