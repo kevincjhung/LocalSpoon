@@ -17,12 +17,13 @@ import Analytics from './pages/seller/AnalyticsPage';
 import ProductPosting from './pages/seller/ProductPostingPage';
 import SellerOrders from './pages/seller/SellerOrdersPage';
 import Shop from './pages/seller/ShopPage';
-
+import ExplorePage from './pages/buyer/ExplorePage';
+import FeedPage from './pages/buyer/FeedPage';
+import ProductPage from './pages/buyer/ProductPage';
 
 // Component imports
 import SellerNavbar from './components/SellerNavbar';
-import ThreeColumnsInfiniteScroll from './components/explore/ThreeColumnsInfiniteScroll';
-import ExplorePage from './pages/buyer/ExplorePage';
+
 
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
             </Route>
             <Route path='/buyer/*' >
               <Route path='explore' element={<ExplorePage />} />
+              <Route path='feed' element={<FeedPage />} />
+              <Route path="product/:productId" element={<ProductPage />} /> 
             </Route>
           </Routes>
         </Router>

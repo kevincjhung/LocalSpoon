@@ -31,7 +31,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 /**
- * GET /api/product/:id
+ * GET /api/products/:id
  * 
  * Retrieves a product by ID.
  * 
@@ -42,16 +42,23 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   const productId: string = req.params.id;
 
-  if (isUrlParamsNumeric(productId)) {
+  if (!isUrlParamsNumeric(productId)) {
     res.status(400).json({ error: 'Invalid product ID' });
+    return
   }
 
   try {
-    const product = await prisma.product.findUnique({
-      where: {
-        id: parseInt(productId, 10),
-      },
-    });
+    const product = await prisma.$queryRaw`
+    SELECT 
+      "Product".id,
+      "Product".name,
+      "Product".description,
+      "Product".price,
+      "Store".store_name
+    FROM "Product"
+    LEFT JOIN "Store" ON "Product".store_id = "Store".id
+    WHERE "Product".id = CAST(${productId} AS INTEGER)
+  `;
 
     if (!product) {
       res.status(404).json({ error: 'Product not found' });

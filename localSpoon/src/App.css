@@ -126,6 +126,79 @@
   margin: auto;
 }
 
+.product-page-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+  padding: 20px;
+  height: 85vh; 
+  width: 77%;
+  margin: auto;
+}
+
+.product-page-container h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.product-page-container p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.product-page-image-section-container {
+  width: 40vw;
+  height: 85vh;
+  display: grid;
+  grid-template-rows: 3fr 1fr; 
+}
+
+.product-page-image-section-carousel-slider {
+  display: flex;
+  overflow-y: scroll;
+}
+
+.product-page-image-section-carousel-slider img {
+  height: auto;
+  padding: 0 1rem;
+}
+
+.product-page-image-section-main-image {
+  height: 77%;
+  margin: auto;
+  display: block;
+}
+
+.product-page-details-section-container {
+  margin-bottom: 10px;
+  padding: 25px;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-page-store,
+.product-page-price {
+  font-size: 0.75rem; /* Font size for store and price */
+  display: inline; 
+}
+
+.product-page-store-price {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.product-page-purchase-controls {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
 
 @media (max-width: 768px) {
   /* Responsive layout adjustments for smaller screens */
