@@ -28,7 +28,6 @@ export default function ProductDetailsSection({ productId }){
         console.error(error)  
       }
     }
-
     fetchData();
     
     return () => {
@@ -50,7 +49,7 @@ export default function ProductDetailsSection({ productId }){
         </Typography>
       </div>
       <Typography variant="p" className="produce-page-product-description">
-        {productData.description.substr(0, 150) + "..."}
+        {productData.description}
       </Typography>
       <div className="product-page-purchase-controls">
       <Select

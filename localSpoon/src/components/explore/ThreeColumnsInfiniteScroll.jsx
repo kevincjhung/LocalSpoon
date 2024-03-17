@@ -8,7 +8,8 @@ export default function ThreeColumnsInfiniteScroll(){
     // "description": string
     // "resource_url": string
     // "store_id": number
-    // "store_name": "string
+    // "store_name": string
+		// "product_id": number
     // "store_description": string
     // "price": number
   
@@ -17,7 +18,9 @@ export default function ThreeColumnsInfiniteScroll(){
 
 		const postBody = (
 			<>
-				<img src={post.resource_url} alt={post.name} />
+				<a href={`/buyer/product/${post.product_id}`}>
+					<img src={post.resource_url} alt={post.name} />
+				</a>
 			</>
 		)
 	
