@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
 import ProductImageSection from '../../components/productPage/ProductImageSection';
 import ProductDetailsSection from '../../components/productPage/ProductDetailsSection';
 
 export default function ProductPage() {
   const { productId } = useParams();
-  console.log(productId + " parent component");
+  
 
 
   return (
